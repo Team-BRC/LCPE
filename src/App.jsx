@@ -6,7 +6,7 @@ import Flags from "./pages/Flags";
 import Exit from "./pages/Exit";
 import Results from "./pages/Results";
 import NotFound from "./pages/NotFound";
-import "./App.css";
+import "semantic-ui-css/semantic.min.css";
 
 function App() {
   return (
