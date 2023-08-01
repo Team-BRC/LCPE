@@ -45,7 +45,15 @@ function ExitButton({ remainingTime, totalSeconds }) {
         )}
       </Modal.Content>
       <Modal.Actions>
-        <Button basic color="red" inverted onClick={() => navigate("/results")}>
+        <Button
+          basic
+          color="red"
+          inverted
+          onClick={() => {
+            localStorage.removeItem("timer");
+            navigate("/results");
+          }}
+        >
           <Icon name="remove" /> Finish and View Results
         </Button>
         <Button color="green" inverted onClick={() => setOpen(false)}>

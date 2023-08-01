@@ -27,6 +27,7 @@ const Timer = ({
       const timer = setInterval(() => {
         setRemainingTime(prev => prev - 1); // decriment the timer
       }, 1000);
+      localStorage.setItem("timer", remainingTime);
       return () => clearInterval(timer); //getting rid of space
     } else if (remainingTime <= 0) {
       //if the timer ran out

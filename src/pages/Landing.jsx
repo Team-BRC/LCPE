@@ -9,6 +9,7 @@ export default function Landing() {
 
   const handleStartTimer = () => {
     const totalSeconds = minutes * 60; // convert minutes to seconds
+    localStorage.removeItem("timer");
     navigate("/exam", { state: { totalSeconds } }); // redirect to the exam page, with the seconds as a state
   };
 
