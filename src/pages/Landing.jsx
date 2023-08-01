@@ -1,41 +1,71 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Form, Radio } from "semantic-ui-react";
 
 export default function Landing() {
-  const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [timerType, setTimerType] = useState("noTimer"); // state to track the radio selection
   const navigate = useNavigate();
 
   const handleStartTimer = () => {
-    const totalSeconds = hours * 3600 + minutes * 60; //convert hours + minutes to seconds
-    navigate("/exam", { state: { totalSeconds } }); //redirect to the exam page, with the seconds as a state
+    const totalSeconds = minutes * 60; // convert minutes to seconds
+    localStorage.removeItem("timer");
+    navigate("/exam", { state: { totalSeconds } }); // redirect to the exam page, with the seconds as a state
   };
 
+  const formatTime = timeInMinutes => {
+    const hours = Math.floor(timeInMinutes / 60);
+    const remainingMinutes = timeInMinutes % 60;
+    if (hours > 0) {
+      return `${hours} hour${
+        hours !== 1 ? "s" : ""
+      } and ${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
+    } else {
+      return `${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
+    }
+  };
+
+
   return (
-    <>
-      <h1>Landing</h1>
-      <div>
-        <h1>Set the timer</h1>
+    <div>
+      <h3>Timer Options</h3>
+      <Form>
+        <Radio
+          label="No Timer"
+          value="noTimer"
+          checked={timerType === "noTimer"}
+          onChange={() => {
+            setTimerType("noTimer");
+            setMinutes(0);
+          }}
+        />
+        <Radio
+          label="Timer"
+          value="timer"
+          checked={timerType === "timer"}
+          onChange={() => {
+            setTimerType("timer");
+            setMinutes(30);
+          }}
+        />
         <div>
-          <label>
-            Hours:
+          <label> 
+            <h4 hidden={timerType === "noTimer"}>
+              Time Set: {formatTime(minutes)} 
+            </h4>
             <input
-              type="number"
-              value={hours}
-              onChange={e => setHours(e.target.value)}
-            />
-          </label>
-          <label>
-            Minutes:
-            <input
-              type="number"
+              type="range"
+              min={30}
+              step={15}
+              max={240}
               value={minutes}
               onChange={e => setMinutes(e.target.value)}
+              hidden={timerType === "noTimer"}
             />
           </label>
         </div>
-        <button onClick={handleStartTimer}>Start Timer</button>
-      </div>
-    </>
+      </Form>
+      <button onClick={handleStartTimer}>Start</button>
+    </div>
   );
 }
