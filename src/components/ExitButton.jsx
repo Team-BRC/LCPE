@@ -8,10 +8,9 @@ const formatTime = timeInSeconds => {
   const minutes = Math.floor((timeInSeconds % 3600) / 60);
   const seconds = timeInSeconds % 60;
 
-  return `${String(hours).padStart(2, "0")} hours, ${String(minutes).padStart(
-    2,
-    "0"
-  )} minutes, and ${String(seconds).padStart(2, "0")} seconds`;
+  return `${String(hours).padStart(2, "0")} hours, 
+  ${String(minutes).padStart(2, "0")} 
+  minutes, and ${String(seconds).padStart(2, "0")} seconds`;
 };
 
 function ExitButton({ remainingTime, totalSeconds }) {

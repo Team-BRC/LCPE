@@ -6,9 +6,9 @@ import QuestionProvider from "./context/QuestionProvider.jsx";
 // import QuestionProvider from "./context/QuestionProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <QuestionProvider>
       <App />
     </QuestionProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

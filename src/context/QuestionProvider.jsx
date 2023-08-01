@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import QuestionContext from "./QuestionContext";
+import Test from "../Test";
 // // import SERVICE_ACCOUNT_KEY from "./path/to/your/serviceAccountKey.json"; // Replace with the path to your service account key JSON file
 
 // const QuestionProvider = ({ children }) => {
@@ -69,12 +70,13 @@ const API =
 
 export default function QuestionProvider({ children }) {
   const [questions, setQuestions] = useState([]);
+  const [test, setTest] = useState(null);
+
   useEffect(() => {
     try {
       async function getQuestions() {
         const response = await fetch(API);
         const data = await response.json();
-        console.log(data);
         setQuestions(data);
         return data;
       }
@@ -83,7 +85,8 @@ export default function QuestionProvider({ children }) {
       console.log(error);
     }
   }, []);
-  const value = { questions };
+
+  const value = { questions, test, setTest };
   return (
     <QuestionContext.Provider value={value}>
       {children}

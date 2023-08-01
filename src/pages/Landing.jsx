@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Radio } from "semantic-ui-react";
+import QuestionContext from "../context/QuestionContext";
+import Test from "../Test";
 
 export default function Landing() {
   const [minutes, setMinutes] = useState(0);
   const [timerType, setTimerType] = useState("noTimer"); // state to track the radio selection
+  const [selectedExamSize, setSelectedExamSize] = useState(175);
   const navigate = useNavigate();
+  const { questions } = useContext(QuestionContext);
 
-  const handleStartTimer = () => {
+  function handleExamGeneration(questions, selectedExamSize) {
+    const examInstance = new Test(selectedExamSize);
+    examInstance.generateExam(questions, examInstance.totalQuestions);
+    console.log(examInstance);
+    localStorage.setItem("test", examInstance); // FOR SOME REASON IT IS NOT STORING THE INSTANCE PROPERLY
+  }
+
+  const handleStart = () => {
     const totalSeconds = minutes * 60; // convert minutes to seconds
     localStorage.removeItem("timer");
+    handleExamGeneration(questions, selectedExamSize);
     navigate("/exam", { state: { totalSeconds } }); // redirect to the exam page, with the seconds as a state
   };
 
@@ -24,7 +36,6 @@ export default function Landing() {
       return `${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
     }
   };
-
 
   return (
     <div>
@@ -49,9 +60,9 @@ export default function Landing() {
           }}
         />
         <div>
-          <label> 
+          <label>
             <h4 hidden={timerType === "noTimer"}>
-              Time Set: {formatTime(minutes)} 
+              Time Set: {formatTime(minutes)}
             </h4>
             <input
               type="range"
@@ -64,8 +75,15 @@ export default function Landing() {
             />
           </label>
         </div>
+        <input
+          type="number"
+          value={selectedExamSize}
+          max={175}
+          min={0}
+          onChange={e => setSelectedExamSize(e.target.value)}
+        />
       </Form>
-      <button onClick={handleStartTimer}>Start</button>
+      <button onClick={handleStart}>Start</button>
     </div>
   );
 }
