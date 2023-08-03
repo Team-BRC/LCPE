@@ -12,8 +12,7 @@ const Exam = () => {
     () => localStorage.getItem("timer") || totalSeconds
   );
   const navigate = useNavigate();
-  const test = localStorage.getItem("test")
-  console.log(test)
+  const test = JSON.parse(localStorage.getItem("test"))
 
   useEffect(() => {
     //listening for timer completion

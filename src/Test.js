@@ -8,11 +8,11 @@ class Test {
     this.completionPercent = 0;
     this.flagged = new Map();
     this.incorrect = new Map();
-    this.allQuestions = new Map();
+    this.allQuestions = {};
   }
 
   addQuestion(question) {
-    this.allQuestions.set(question.id, question);
+    this.allQuestions[question.id] = question;
   }
 
   generateExam(sheet, examSize) {

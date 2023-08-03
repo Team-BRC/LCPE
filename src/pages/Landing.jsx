@@ -14,8 +14,8 @@ export default function Landing() {
   function handleExamGeneration(questions, selectedExamSize) {
     const examInstance = new Test(selectedExamSize);
     examInstance.generateExam(questions, examInstance.totalQuestions);
-    console.log(examInstance);
-    localStorage.setItem("test", examInstance); // FOR SOME REASON IT IS NOT STORING THE INSTANCE PROPERLY
+    const examInstanceJSON = JSON.stringify(examInstance);
+    localStorage.setItem("test", examInstanceJSON);
   }
 
   const handleStart = () => {
