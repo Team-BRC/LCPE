@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Timer from "../components/Timer";
 import ExitButton from "../components/ExitButton";
-import QuestionContext from "../context/QuestionContext";
 
 const Exam = () => {
   const location = useLocation();
@@ -12,7 +11,7 @@ const Exam = () => {
     () => localStorage.getItem("timer") || totalSeconds
   );
   const navigate = useNavigate();
-  const test = JSON.parse(localStorage.getItem("test"))
+  const test = JSON.parse(localStorage.getItem("test"));
 
   useEffect(() => {
     //listening for timer completion

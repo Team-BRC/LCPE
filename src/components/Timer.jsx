@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const formatTime = timeInSeconds => {
-  //time seconds -> string
   const hours = Math.floor(timeInSeconds / 3600);
   const minutes = Math.floor((timeInSeconds % 3600) / 60);
   const seconds = timeInSeconds % 60;
@@ -18,8 +17,6 @@ const Timer = ({
   setRemainingTime,
   onTimerDone,
 }) => {
-  // if (totalSeconds > 0) {
-  //only do this if there is a set timer
   useEffect(() => {
     //monitors when the timer ends
     if (totalSeconds > 0 && remainingTime > 0) {
@@ -29,17 +26,14 @@ const Timer = ({
       }, 1000);
       localStorage.setItem("timer", remainingTime);
       return () => clearInterval(timer); //getting rid of space
-    } else if (remainingTime <= 0) {
-      //if the timer ran out
-      // the time ran out
-      onTimerDone(); //function that changes the state, which will in turn dredirect
+    } else if (totalSeconds > 0 && remainingTime <= 0) {
+      onTimerDone(); //the timer ran out, function that changes the state, which will in turn redirect
     }
   }, [totalSeconds, remainingTime, setRemainingTime, onTimerDone]);
 
   if (totalSeconds > 0) {
     return <div>{formatTime(remainingTime)}</div>;
   }
-  // }
 };
 
 export default Timer;

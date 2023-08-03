@@ -36,6 +36,7 @@ export default function Landing() {
       return `${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
     }
   };
+  console.log(timerType);
 
   return (
     <div>

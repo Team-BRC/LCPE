@@ -3,7 +3,7 @@ import QuestionClass from "./Question.js";
 class Test {
   constructor(totalQuestions) {
     this.progress = 0;
-    this.totalQuestions = totalQuestions; //this is a number
+    this.totalQuestions = totalQuestions;
     this.correctAnswers = 0;
     this.completionPercent = 0;
     this.flagged = new Map();
@@ -33,9 +33,11 @@ class Test {
     let id = 1;
     for (const [category, categoryArray] of sheetObj) {
       const totalInCategory = categoryArray.length;
-      const questionsFromEachCategory = Math.round(
+      const calculation = Math.round(
         (totalInCategory * examSize) / totalInBank
       );
+      const questionsFromEachCategory =
+        calculation < totalInCategory ? calculation : totalInCategory;
       const takenNums = new Set();
       while (takenNums.size < questionsFromEachCategory) {
         const num = Math.floor(Math.random() * totalInCategory);
@@ -74,8 +76,6 @@ class Test {
     return this.allQuestions;
   }
 
-  //make the function for, given the amount of time or number of questions, the generation of those questions
-
   changeFlag(question, status) {
     if (status) {
       this.flagged.set(question.unique, question);
@@ -85,5 +85,4 @@ class Test {
   }
 }
 
-// module.exports = Test;
 export default Test;
