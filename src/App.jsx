@@ -9,10 +9,6 @@ import Exit from "./pages/Exit";
 import Results from "./pages/Results";
 import NotFound from "./pages/NotFound";
 import "semantic-ui-css/semantic.min.css";
-
-// const API =
-//   "https://sheet.best/api/sheets/479ee362-5a23-4222-9559-2429138784fd";
-
 function App() {
   return (
     <>
@@ -29,8 +25,11 @@ function App() {
           </Routes>
         </BrowserRouter>
       </main>
+
     </>
   );
 }
 
 export default App;
+
+

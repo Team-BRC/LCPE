@@ -13,6 +13,7 @@ export default function Landing() {
 
   function handleExamGeneration(questions, selectedExamSize) {
     const examInstance = new Test(selectedExamSize);
+    console.log(examInstance);
     examInstance.generateExam(questions, examInstance.totalQuestions);
     const examInstanceJSON = JSON.stringify(examInstance);
     localStorage.setItem("test", examInstanceJSON);
@@ -25,7 +26,7 @@ export default function Landing() {
     navigate("/exam", { state: { totalSeconds } }); // redirect to the exam page, with the seconds as a state
   };
 
-  const formatTime = timeInMinutes => {
+  const formatTime = (timeInMinutes) => {
     const hours = Math.floor(timeInMinutes / 60);
     const remainingMinutes = timeInMinutes % 60;
     if (hours > 0) {
@@ -71,7 +72,7 @@ export default function Landing() {
               step={15}
               max={240}
               value={minutes}
-              onChange={e => setMinutes(e.target.value)}
+              onChange={(e) => setMinutes(e.target.value)}
               hidden={timerType === "noTimer"}
             />
           </label>
@@ -81,10 +82,11 @@ export default function Landing() {
           value={selectedExamSize}
           max={175}
           min={0}
-          onChange={e => setSelectedExamSize(e.target.value)}
+          onChange={(e) => setSelectedExamSize(e.target.value)}
         />
       </Form>
       <button onClick={handleStart}>Start</button>
     </div>
   );
 }
+
