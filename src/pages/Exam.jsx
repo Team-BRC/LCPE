@@ -158,7 +158,14 @@ const Exam = () => {
         </button>
         <button onClick={nextFunc}>Next</button>
       </section>
-      <Outline questionCategory={question.category} test={test} />
+      <Outline
+        questionCategory={question.category}
+        setIndex={setIndex}
+        setQuestion={setQuestion}
+        setSelectedValue={setSelectedValue}
+        pagination={pagination}
+        test={test}
+      />
       <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
     </>
   );

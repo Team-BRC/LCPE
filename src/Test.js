@@ -33,7 +33,7 @@ class Test {
     }
     let id = 1;
     for (const [category, categoryArray] of sheetObj) {
-      this.listOfCategories[category] = id;
+      this.listOfCategories[category] = id; // this is where the categories and the first question for them is assigned
       const totalInCategory = categoryArray.length;
       const calculation = Math.round(
         (totalInCategory * examSize) / totalInBank
