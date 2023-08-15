@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Timer from "../components/Timer";
 import ExitButton from "../components/ExitButton";
+import Outline from "../components/Outline";
 import { Form, Radio, Progress, Container, Header } from "semantic-ui-react";
 
 const Exam = () => {
@@ -28,9 +29,8 @@ const Exam = () => {
     console.log(test, test.allQuestions);
     //listening for timer completion
     if (isTimerDone) {
-      //the timer ended
       localStorage.removeItem("timer");
-      navigate("/results"); //redirect to results page
+      navigate("/results");
       setSelectedValue(question.selectedAnswer || null);
     }
   }, [index, progress]);
@@ -158,7 +158,7 @@ const Exam = () => {
         </button>
         <button onClick={nextFunc}>Next</button>
       </section>
-
+      <Outline questionCategory={question.category} test={test} />
       <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
     </>
   );
