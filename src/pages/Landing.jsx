@@ -40,7 +40,7 @@ export default function Landing() {
   console.log(timerType);
 
   return (
-    <div>
+    <div id="landing">
       <h3>Timer Options</h3>
       <Form>
         <Radio

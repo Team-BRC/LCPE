@@ -1,15 +1,16 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors"); // Import the cors package
 const { google } = require("googleapis");
 
 const app = express();
-const port = 8080;
-
+const port = 3000;
+// process.env.PORT 
 //This allows us to parse the incoming request body as JSON
 app.use(cors());
 
 // With this, we'll listen for the server on port 8080
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => console.log(`Server running at http://localhost:${port}/api`));
 
 async function authSheets() {
     //Function for authentication object
@@ -31,7 +32,7 @@ async function authSheets() {
     };
   }
   
-  app.get("/", async (req, res) => {
+  app.get("/api", async (req, res) => {
     const { sheets } = await authSheets();
   
     // Read rows from spreadsheet

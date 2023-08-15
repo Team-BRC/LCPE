@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Timer from "../components/Timer";
 import ExitButton from "../components/ExitButton";
-import { Form, Radio } from "semantic-ui-react";
+import { Form, Radio, Progress, Container, Header } from "semantic-ui-react";
 
 const Exam = () => {
+  const [progress, setProgess] = useState(0);
+  const [flag, setFlag] = useState(false);
   const [index, setIndex] = useState(0);
   const [selectedValue, setSelectedValue] = useState(null);
   const [question, setQuestion] = useState({});
@@ -16,9 +18,14 @@ const Exam = () => {
   );
   const navigate = useNavigate();
   const test = JSON.parse(localStorage.getItem("test"));
+  const pagination = [];
+  for (let questionKey in test.allQuestions) {
+    const questionObject = test.allQuestions[questionKey];
+    pagination.push(questionObject);
+  }
 
   useEffect(() => {
-    console.log(test.allQuestions);
+    console.log(test, test.allQuestions);
     //listening for timer completion
     if (isTimerDone) {
       //the timer ended
@@ -26,13 +33,11 @@ const Exam = () => {
       navigate("/results"); //redirect to results page
       setSelectedValue(question.selectedAnswer || null);
     }
-  }, [index, question]);
+  }, [index, progress]);
 
-  const pagination = [];
-  for (let questionKey in test.allQuestions) {
-    const questionObject = test.allQuestions[questionKey];
-    pagination.push(questionObject);
-  }
+  useEffect(() => {
+    setQuestion(pagination[index]);
+  }, []);
 
   const nextFunc = () => {
     const nextIndex = index + 1;
@@ -49,19 +54,59 @@ const Exam = () => {
   };
 
   const handleRadioChange = (value) => {
-    setSelectedValue(value); // Update selected value in state
-    pagination[index].selectedAnswer = value; // Update selectedAnswer in pagination
-    console.log(pagination[index], pagination[index].selectedAnswer);
-    // setSelectedValue(pagination[index].selectedAnswer);
+    setSelectedValue(value);
+    pagination[index].selectedAnswer = value;
+
+    if (pagination[index].selectedAnswer === pagination[index].answer) {
+      const correctAnswers = parseInt(test.correctAnswers || 0);
+      test.correctAnswers = correctAnswers + 1;
+    }
+
+    test.progress = progress + 1;
+    setProgess(test.progress);
+
     const updatedTest = { ...test };
     updatedTest.allQuestions[pagination[index].id].selectedAnswer = value;
+
     localStorage.setItem("test", JSON.stringify(updatedTest));
   };
 
+  const flagQuestion = () => {
+    const updatedTest = { ...test };
+    if (!flag) {
+      // Flag the question
+      updatedTest.flagged[index] = pagination[index];
+      pagination[index].flag = true;
+      setFlag(true);
+    } else {
+      // Unflag the question
+      delete updatedTest.flagged[index];
+      pagination[index].flag = false;
+      setFlag(false);
+    }
+    localStorage.setItem("test", JSON.stringify(updatedTest));
+  };
+
+  const ExamProgress = () => (
+    <Progress
+      color="olive"
+      className="progressBar"
+      value={test.progress}
+      total={test.totalQuestions}
+      progress="ratio"
+    />
+  );
+
   return (
     <>
-      <h1>Exam</h1>
-      <h2>Question: {index}</h2>
+      <ExamProgress />
+      <Timer
+        totalSeconds={totalSeconds}
+        remainingTime={remainingTime}
+        setRemainingTime={setRemainingTime}
+        onTimerDone={() => setIsTimerDone(true)}
+      />
+      <h2>Question: {index + 1}</h2>
       <h3>{question.question}</h3>
       <Form>
         <Form.Field>
@@ -69,8 +114,8 @@ const Exam = () => {
             label={question.a}
             name="radioGroup"
             value="a"
-            checked={selectedValue === "a"}
-            onChange={() => handleRadioChange("a")}
+            checked={selectedValue === "A"}
+            onChange={() => handleRadioChange("A")}
           />
         </Form.Field>
         <Form.Field>
@@ -78,8 +123,8 @@ const Exam = () => {
             label={question.b}
             name="radioGroup"
             value="b"
-            checked={selectedValue === "b"}
-            onChange={() => handleRadioChange("b")}
+            checked={selectedValue === "B"}
+            onChange={() => handleRadioChange("B")}
           />
         </Form.Field>
         <Form.Field>
@@ -87,8 +132,8 @@ const Exam = () => {
             label={question.c}
             name="radioGroup"
             value="c"
-            checked={selectedValue === "c"}
-            onChange={() => handleRadioChange("c")}
+            checked={selectedValue === "C"}
+            onChange={() => handleRadioChange("C")}
           />
         </Form.Field>
         <Form.Field>
@@ -96,21 +141,23 @@ const Exam = () => {
             label={question.d}
             name="radioGroup"
             value="d"
-            checked={selectedValue === "d"}
-            onChange={() => handleRadioChange("d")}
+            checked={selectedValue === "D"}
+            onChange={() => handleRadioChange("D")}
           />
         </Form.Field>
       </Form>
 
-      <Timer
-        totalSeconds={totalSeconds}
-        remainingTime={remainingTime}
-        setRemainingTime={setRemainingTime}
-        onTimerDone={() => setIsTimerDone(true)}
-      />
-      <button onClick={backFunc}>Back</button>
-      <button onClick={nextFunc}>Next</button>
-      <button>Flag</button>
+      <section className="questionButtons">
+        <button onClick={backFunc}>Back</button>
+        <button onClick={flagQuestion}>
+          {!pagination[index].flag ? (
+            <i className="flag outline icon"></i>
+          ) : (
+            <i className="flag icon"></i>
+          )}
+        </button>
+        <button onClick={nextFunc}>Next</button>
+      </section>
 
       <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
     </>

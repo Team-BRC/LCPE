@@ -1,6 +1,11 @@
 async function fetchData() {
-  const response = await fetch("http://localhost:8080"); // Adjust the URL to match your backend's endpoint
+  let url =
+    `http://localhost:3000/api` ||
+    `http://${process.env.HOST}:${process.env.PORT}/api`;
+
+  const response = await fetch(url); // Adjust the URL to match your backend's endpoint
   const data = await response.json();
+  console.log(data);
   return data;
 }
 
