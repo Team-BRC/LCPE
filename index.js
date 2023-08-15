@@ -1,4 +1,7 @@
-require('dotenv').config();
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+console.log(dotenv.config());
 
 async function fetchData() {
   let url =
