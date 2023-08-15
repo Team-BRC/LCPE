@@ -110,7 +110,14 @@ const Exam = () => {
       <button onClick={backFunc}>Back</button>
       <button onClick={nextFunc}>Next</button>
       <button>Flag</button>
-      <Outline questionCategory={question.category} test={test} />
+      <Outline
+        questionCategory={question.category}
+        setIndex={setIndex}
+        setQuestion={setQuestion}
+        setSelectedValue={setSelectedValue}
+        pagination={pagination}
+        test={test}
+      />
       <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
     </>
   );

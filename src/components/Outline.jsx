@@ -2,7 +2,27 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button, Menu, Sidebar } from "semantic-ui-react";
 
-const Outline = ({ questionCategory }) => {
+const changeQuestion = (
+  categoryList,
+  newCategory,
+  setIndex,
+  setQuestion,
+  setSelectedValue,
+  pagination
+) => {
+  const newIndex = categoryList[newCategory];
+  setIndex(newIndex);
+  setQuestion(pagination[newIndex]);
+  setSelectedValue(pagination[newIndex].selectedAnswer || null);
+};
+
+const Outline = ({
+  questionCategory,
+  setIndex,
+  setQuestion,
+  setSelectedValue,
+  pagination,
+}) => {
   const [visible, setVisible] = useState(false);
   const categoryList = JSON.parse(
     localStorage.getItem("test")
@@ -28,16 +48,15 @@ const Outline = ({ questionCategory }) => {
                 name={category}
                 active={category === questionCategory}
                 onClick={e => {
-                  /*ok bro here is where we gotta set the next questions,
-                  i made it so that categoryList[category] is the index of the first question in that category,
-                  so clicking on a category for now should redirect to the "start" of the category.
-                    ideally, the steps should be 
-                      1. prevent refresh [ check ]
-                      2. change the question
-                      3. close the menu [ check ]
-                    changing the questions should automatically change the active status and all that, but we'll see
-                  */
                   e.preventDefault();
+                  changeQuestion(
+                    categoryList,
+                    category,
+                    setIndex,
+                    setQuestion,
+                    setSelectedValue,
+                    pagination
+                  );
                   setVisible(false);
                 }}
               ></Menu.Item>
