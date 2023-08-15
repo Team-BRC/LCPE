@@ -4,13 +4,14 @@ const cors = require("cors"); // Import the cors package
 const { google } = require("googleapis");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || '127.0.0.1';
 // process.env.PORT 
 //This allows us to parse the incoming request body as JSON
 app.use(cors());
 
 // With this, we'll listen for the server on port 8080
-app.listen(port, () => console.log(`Server running at http://localhost:${port}/api`));
+app.listen(port, () => console.log(`Server running at http://${host}:${port}/api`));
 
 async function authSheets() {
     //Function for authentication object

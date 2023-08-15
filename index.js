@@ -1,14 +1,6 @@
-import dotenv from "dotenv";
-
-// Load environment variables from .env file
-console.log(dotenv.config());
-
 async function fetchData() {
-  let url =
-    `http://localhost:3000/api` ||
-    `http://${process.env.HOST}:${process.env.PORT}/api`;
-
-  const response = await fetch(url); // Adjust the URL to match your backend's endpoint
+  // Load environment variables from .env file
+  const response = await fetch(`https://brc-lactation-consultant-practice-exam.onrender.com/api`);
   const data = await response.json();
   console.log(data);
   return data;

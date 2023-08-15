@@ -10,6 +10,7 @@ export default function QuestionProvider({ children }) {
   useEffect(() => {
     try {
       async function getSheets() {
+        console.log("is this working??");
         const response = await fetchData();
         const sheet = await response;
         console.log(sheet.values);
@@ -37,6 +38,7 @@ export default function QuestionProvider({ children }) {
       }
       getSheets();
     } catch (error) {
+
       console.log(error);
     }
   }, []);
