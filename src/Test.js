@@ -9,6 +9,7 @@ class Test {
     this.flagged = new Map();
     this.incorrect = new Map();
     this.allQuestions = {};
+    this.listOfCategories = {};
   }
 
   addQuestion(question) {
@@ -32,6 +33,7 @@ class Test {
     }
     let id = 1;
     for (const [category, categoryArray] of sheetObj) {
+      this.listOfCategories[category] = id;
       const totalInCategory = categoryArray.length;
       const calculation = Math.round(
         (totalInCategory * examSize) / totalInBank

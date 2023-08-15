@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Timer from "../components/Timer";
 import ExitButton from "../components/ExitButton";
+import Outline from "../components/Outline";
 import { Form, Radio } from "semantic-ui-react";
 
 const Exam = () => {
@@ -18,12 +19,10 @@ const Exam = () => {
   const test = JSON.parse(localStorage.getItem("test"));
 
   useEffect(() => {
-    console.log(test.allQuestions);
-    //listening for timer completion
+    // console.log(test.allQuestions);
     if (isTimerDone) {
-      //the timer ended
       localStorage.removeItem("timer");
-      navigate("/results"); //redirect to results page
+      navigate("/results");
       setSelectedValue(question.selectedAnswer || null);
     }
   }, [index, question]);
@@ -48,7 +47,7 @@ const Exam = () => {
     setSelectedValue(pagination[prevIndex].selectedAnswer || null);
   };
 
-  const handleRadioChange = (value) => {
+  const handleRadioChange = value => {
     setSelectedValue(value); // Update selected value in state
     pagination[index].selectedAnswer = value; // Update selectedAnswer in pagination
     console.log(pagination[index], pagination[index].selectedAnswer);
@@ -111,7 +110,7 @@ const Exam = () => {
       <button onClick={backFunc}>Back</button>
       <button onClick={nextFunc}>Next</button>
       <button>Flag</button>
-
+      <Outline questionCategory={question.category} test={test} />
       <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
     </>
   );
