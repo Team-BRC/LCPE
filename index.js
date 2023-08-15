@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 async function fetchData() {
   let url =
     `http://localhost:3000/api` ||
