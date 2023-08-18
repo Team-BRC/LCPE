@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import QuestionContext from "./QuestionContext";
-import fetchData from "/index.js";
+import fetchData from "../index.js";
 
 export default function QuestionProvider({ children }) {
   const [questions, setQuestions] = useState([]);
