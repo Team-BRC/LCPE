@@ -8,7 +8,23 @@ const app = express();
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || "127.0.0.1";
 
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+app.use(cors());
+
+// Serve static files from the React build directory
+app.use(express.static(path.join(__dirname, '..', 'build')));
+
+// Route for any URL not matching other routes, serve index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
+
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
