@@ -11,7 +11,7 @@ const host = process.env.HOST || "127.0.0.1";
 // Middleware
 app.use(cors()); // Add CORS middleware here
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Logging middleware
 app.use((req, res, next) => {
