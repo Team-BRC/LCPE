@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 
 // Route for API
 app.get("/api", async (req, res) => {
+  app.use(cors()); // Add CORS middleware here
   try {
     const { sheets } = await authSheets();
     // Read rows from spreadsheet
