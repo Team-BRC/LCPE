@@ -40,10 +40,12 @@ const Exam = () => {
   }, []);
 
   const nextFunc = () => {
+    
     const nextIndex = index + 1;
     setIndex(nextIndex);
     setQuestion(pagination[nextIndex]);
     setSelectedValue(pagination[nextIndex].selectedAnswer || null);
+    
   };
 
   const backFunc = () => {
@@ -86,6 +88,10 @@ const Exam = () => {
     }
     localStorage.setItem("test", JSON.stringify(updatedTest));
   };
+
+  const firstAndLastQuestion = () => {
+    
+  }
 
   const ExamProgress = () => (
     <Progress
@@ -148,7 +154,7 @@ const Exam = () => {
       </Form>
 
       <section className="questionButtons">
-        <button onClick={backFunc}>Back</button>
+      {index + 1 === 1 ? '' :<button onClick={backFunc}>Back</button>}
         <button onClick={flagQuestion}>
           {!pagination[index].flag ? (
             <i className="flag outline icon"></i>
@@ -156,7 +162,7 @@ const Exam = () => {
             <i className="flag icon"></i>
           )}
         </button>
-        <button onClick={nextFunc}>Next</button>
+        {index + 1 === Number(test.totalQuestions) ? '' : <button onClick={nextFunc}>Next</button>}
       </section>
       <Outline
         questionCategory={question.category}
