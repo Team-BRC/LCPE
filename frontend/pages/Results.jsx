@@ -5,7 +5,6 @@ export default function Results() {
 
   const test = JSON.parse(localStorage.getItem("test"));
   useEffect(() => {
-    console.log(test);
   }, []);
   console.log();
   const resultInPercent = Math.round(

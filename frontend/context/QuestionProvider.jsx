@@ -12,11 +12,9 @@ export default function QuestionProvider({ children }) {
       async function getSheets() {
         const response = await fetchData();
         const sheet = await response;
-        console.log(sheet.values);
         for (let i = 1; i < sheet.values.length; i++) {
           let questionObj = {};
           let question = sheet.values[i];
-          console.log(question[9])
           questionObj = {
             SubCatNum: question[0],
             Category: question[1],
@@ -33,13 +31,11 @@ export default function QuestionProvider({ children }) {
           };
           bestSheetsDupe.push(questionObj);
         }
-        console.log(bestSheetsDupe);
         setQuestions(bestSheetsDupe);
         return bestSheetsDupe;
       }
       getSheets();
     } catch (error) {
-
       console.log(error);
     }
   }, []);
