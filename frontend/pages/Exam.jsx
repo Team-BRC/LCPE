@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Timer from "../components/Timer";
 import ExitButton from "../components/ExitButton";
 import Outline from "../components/Outline";
 import { Form, Radio, Progress, Container, Header } from "semantic-ui-react";
+import PopUp from "../components/PopUp";
 
 const Exam = () => {
+  const { questionId } = useParams();
   const [progress, setProgess] = useState(0);
   const [flag, setFlag] = useState(false);
   const [index, setIndex] = useState(0);
@@ -14,38 +16,51 @@ const Exam = () => {
   const location = useLocation();
   const { totalSeconds } = location.state;
   const [isTimerDone, setIsTimerDone] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [remainingTime, setRemainingTime] = useState(
     () => localStorage.getItem("timer") || totalSeconds
   );
   const navigate = useNavigate();
   const test = JSON.parse(localStorage.getItem("test"));
-  const pagination = [];
-  for (let questionKey in test.allQuestions) {
-    const questionObject = test.allQuestions[questionKey];
-    pagination.push(questionObject);
-  }
-
-  useEffect(() => {
-    console.log(test, test.allQuestions);
-    //listening for timer completion
-    if (isTimerDone) {
-      localStorage.removeItem("timer");
-      navigate("/results");
-      setSelectedValue(question.selectedAnswer || null);
-    }
-  }, [index, progress]);
+  const pagination = Object.values(test.allQuestions);
 
   useEffect(() => {
     setQuestion(pagination[index]);
   }, []);
 
+  useEffect(() => {
+    // Fetch and set the question based on the questionId
+    const currentQuestion = pagination.find(
+      (q) => q.id === parseInt(questionId)
+    );
+    if (currentQuestion) {
+      setIndex(pagination.indexOf(currentQuestion));
+      setQuestion(currentQuestion);
+      setSelectedValue(currentQuestion.selectedAnswer || null);
+    }
+  }, [questionId]);
+
+  useEffect(() => {
+    //listening for timer completion
+    if (isTimerDone) {
+      localStorage.removeItem("timer");
+      navigate("/results");
+      if (question.selectedAnswer) {
+        setSelectedValue(question.selectedAnswer);
+      }
+    }
+  }, [isTimerDone]);
+
   const nextFunc = () => {
-    
-    const nextIndex = index + 1;
-    setIndex(nextIndex);
-    setQuestion(pagination[nextIndex]);
-    setSelectedValue(pagination[nextIndex].selectedAnswer || null);
-    
+    if (!pagination[index].selectedAnswer) {
+      setShowModal(true); // Show the modal if no answer is selected
+    } else {
+      // Proceed to the next question
+      const nextIndex = index + 1;
+      setIndex(nextIndex);
+      setQuestion(pagination[nextIndex]);
+      setSelectedValue(pagination[nextIndex].selectedAnswer || null);
+    }
   };
 
   const backFunc = () => {
@@ -62,6 +77,8 @@ const Exam = () => {
     if (pagination[index].selectedAnswer === pagination[index].answer) {
       const correctAnswers = parseInt(test.correctAnswers || 0);
       test.correctAnswers = correctAnswers + 1;
+    } else {
+      test.incorrect.push(pagination[index]);
     }
 
     test.progress = progress + 1;
@@ -88,10 +105,6 @@ const Exam = () => {
     }
     localStorage.setItem("test", JSON.stringify(updatedTest));
   };
-
-  const firstAndLastQuestion = () => {
-    
-  }
 
   const ExamProgress = () => (
     <Progress
@@ -154,7 +167,7 @@ const Exam = () => {
       </Form>
 
       <section className="questionButtons">
-      {index + 1 === 1 ? '' :<button onClick={backFunc}>Back</button>}
+        {index + 1 === 1 ? "" : <button onClick={backFunc}>Back</button>}
         <button onClick={flagQuestion}>
           {!pagination[index].flag ? (
             <i className="flag outline icon"></i>
@@ -162,7 +175,11 @@ const Exam = () => {
             <i className="flag icon"></i>
           )}
         </button>
-        {index + 1 === Number(test.totalQuestions) ? '' : <button onClick={nextFunc}>Next</button>}
+        {index + 1 === Number(test.totalQuestions) ? (
+          ""
+        ) : (
+          <button onClick={nextFunc}>Next</button>
+        )}
       </section>
       <Outline
         questionCategory={question.category}
@@ -173,6 +190,21 @@ const Exam = () => {
         test={test}
       />
       <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
+
+      {showModal && (
+        <PopUp
+          open={showModal}
+          onClose={() => setShowModal(false)}
+          onConfirm={() => {
+            setShowModal(false); // Close the modal
+            // Proceed to the next question
+            const nextIndex = index + 1;
+            setIndex(nextIndex);
+            setQuestion(pagination[nextIndex]);
+            setSelectedValue(pagination[nextIndex].selectedAnswer || null);
+          }}
+        />
+      )}
     </>
   );
 };

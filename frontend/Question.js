@@ -8,9 +8,10 @@ class QuestionClass {
     Category,
     Subcategory,
     Question,
-    Explaination,
+    Explained,
     Picture,
-    id
+    id,
+    Flag
   ) {
     this.id = id;
     this.category = Category;
@@ -21,9 +22,9 @@ class QuestionClass {
     this.b = B;
     this.c = C;
     this.d = D;
-    this.explaination = Explaination;
+    this.explained = Explained;
     this.picture = Picture;
-    this.flag = false;
+    this.flag = Flag;
     this.selectedAnswer = null;
     this.ifCorrect = null;
   }

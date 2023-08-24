@@ -27,7 +27,7 @@ app.get("/api", async (req, res) => {
     // Read rows from spreadsheet
     const getRows = await sheets.spreadsheets.values.get({
       spreadsheetId: "1W2zM3dAoI4NV4OP03AoPlF1xx6seHYREuljTVfNv3NY",
-      range: "Sheet1",
+      range: "Sheet1!A:K",
     });
 
     res.json(getRows.data);

@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import { Button, Menu, Sidebar } from "semantic-ui-react";
 
 const changeQuestion = (
-  categoryList,
-  newCategory,
+  questionId,
   setIndex,
   setQuestion,
   setSelectedValue,
   pagination
 ) => {
-  const newIndex = categoryList[newCategory];
-  setIndex(newIndex);
-  setQuestion(pagination[newIndex]);
-  setSelectedValue(pagination[newIndex].selectedAnswer || null);
+  const questionIndex = pagination.findIndex((q) => q.id === questionId);
+  if (questionIndex !== -1) {
+    setIndex(questionIndex);
+    setQuestion(pagination[questionIndex]);
+    setSelectedValue(pagination[questionIndex].selectedAnswer || null);
+  }
 };
 
 const Outline = ({
@@ -24,9 +25,11 @@ const Outline = ({
   pagination,
 }) => {
   const [visible, setVisible] = useState(false);
+  const flaggedQuestions = JSON.parse(localStorage.getItem("test")).flagged;
   const categoryList = JSON.parse(
     localStorage.getItem("test")
   ).listOfCategories;
+
   return (
     <>
       <Button content={questionCategory} onClick={() => setVisible(true)} />
@@ -38,31 +41,49 @@ const Outline = ({
         onHide={() => setVisible(false)}
         vertical
         visible={visible}
-        width="thin"
+        width="wide"
       >
-        <Menu pointing secondary vertical>
-          {Object.keys(categoryList).map(category => {
+        <Menu pointing secondary vertical className="menu">
+          <h5>Categories</h5>
+          {Object.keys(categoryList).map((category) => {
             return (
               <Menu.Item
+                key={category}
+                id="menuItems"
                 as={Link}
                 name={category}
                 active={category === questionCategory}
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
-                  changeQuestion(
-                    categoryList,
-                    category,
-                    setIndex,
-                    setQuestion,
-                    setSelectedValue,
-                    pagination
-                  );
                   setVisible(false);
                 }}
               ></Menu.Item>
             );
           })}
         </Menu>
+        <div className="flaggedQuestionParent">
+          <h5>Flagged Questions</h5>
+          {Object.keys(flaggedQuestions).map((questionId) => {
+            const question = flaggedQuestions[questionId];
+            return (
+              <button
+                key={questionId}
+                className="flaggedQuestion"
+                onClick={() =>
+                  changeQuestion(
+                    question.id,
+                    setIndex,
+                    setQuestion,
+                    setSelectedValue,
+                    pagination
+                  )
+                }
+              >
+                {question.id} {question.question}
+              </button>
+            );
+          })}
+        </div>
       </Sidebar>
     </>
   );

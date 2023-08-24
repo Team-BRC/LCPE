@@ -11,7 +11,33 @@ export default function Results() {
   const resultInPercent = Math.round(
     (Number(test.correctAnswers) / Number(test.totalQuestions)) * 100
   );
-  const goHome = () => {navigate("/")};
+  const goHome = () => {
+    navigate("/");
+  };
+
+  function wrongAnswer(question) {
+    if (question.selectedAnswer === "A") {
+      return question.a;
+    } else if (question.selectedAnswer === "B") {
+      return question.b;
+    } else if (question.selectedAnswer === "C") {
+      return question.c;
+    } else {
+      return question.d;
+    }
+  }
+
+  function correctAnswer(question) {
+    if (question.answer === "A") {
+      return question.a;
+    } else if (question.answer === "B") {
+      return question.b;
+    } else if (question.answer === "C") {
+      return question.c;
+    } else {
+      return question.d;
+    }
+  }
 
   return (
     <>
@@ -21,6 +47,23 @@ export default function Results() {
         Final Result: {Number(test.correctAnswers)} out of{" "}
         {Number(test.totalQuestions)}{" "}
       </h3>
+      <div className="scroll-container">
+        <ul>
+          {test.incorrect.map((question) => (
+            <li key={question.id}>
+              <br />
+              <h4>
+                Question: {question.id} {question.question}
+              </h4>
+
+              <p>Selected Answer: {wrongAnswer(question)}</p>
+
+              <p>Correct Answer: {correctAnswer(question)}</p>
+              <h4>Explanation: {question.explained}</h4>
+            </li>
+          ))}
+        </ul>
+      </div>
       <button onClick={goHome}>Return Home</button>
     </>
   );

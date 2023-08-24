@@ -7,7 +7,7 @@ class Test {
     this.correctAnswers = 0;
     this.completionPercent = 0;
     this.flagged = new Map();
-    this.incorrect = new Map();
+    this.incorrect = [];
     this.allQuestions = {};
     this.listOfCategories = {};
   }
@@ -53,8 +53,9 @@ class Test {
             Category,
             Subcategory,
             Question,
-            Explaination,
+            Explained,
             Picture,
+            Flag
           } = categoryArray[num];
           const newQuestion = new QuestionClass(
             A,
@@ -65,9 +66,10 @@ class Test {
             Category,
             Subcategory,
             Question,
-            Explaination,
+            Explained,
             Picture,
-            id
+            id,
+            Flag
           );
           this.addQuestion(newQuestion);
           takenNums.add(num);

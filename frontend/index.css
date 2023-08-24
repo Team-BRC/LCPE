@@ -27,6 +27,10 @@
   align-items: center;
 }
 
+li {
+  list-style-type: none;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -71,15 +75,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-#landing{
-  height: 50vh;
+#landing {
+  height: 90vh;
   display: flex;
+  text-align: center;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
 
-#landing button{
+#landing button {
   width: 55%;
 }
 
@@ -99,6 +104,50 @@ Button {
 #main h3 {
   text-align: center;
 }
+
+.flaggedQuestionParent h5 {
+  font-size: 1.4rem;
+  color: #f9f9f9;
+}
+
+.flaggedQuestionParent {
+  margin-top: 45%;
+  display: flex;
+  flex-direction: column;
+  width: 25.5vw;
+  height: 90vh;
+  justify-content: space-evenly;
+}
+
+.flaggedQuestion {
+  width: 24vw;
+}
+
+.menuItems {
+  background-color: white;
+  font-size: 100vh;
+}
+.menu {
+  margin-top: 10vh !important;
+  font-size: 1.4rem !important;
+  height: 35vh;
+  width: 25vw !important;
+  align-items: center !important;
+}
+.menu h5 {
+  font-size: 1.4rem;
+  color: #f9f9f9;
+}
+
+/* Define a fixed height for the container */
+.scroll-container {
+  height: 55vh; /* Adjust the height as needed */
+  width: 75vw;
+  overflow-y: auto; /* Add a vertical scrollbar if necessary */
+  border: 2px solid #313231; /* Add a border for styling */
+  padding: 10px; /* Add some padding for spacing */
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -41,6 +41,15 @@ export default function Landing() {
 
   return (
     <div id="landing">
+      <h1>Lactation Consultant Practice Test</h1>
+      <br />
+      <ul>
+        <li>you will have the option complete 175 questions or choose the quantity</li>
+        <li>you can go back to questions</li>
+        <li>you can flag questions</li>
+      </ul>
+      <h2>Practice Exam ( No timer, 175 questions)</h2>
+      <h2>Mock Exam (~3 hours, 175 questions)</h2>
       <h3>Timer Options</h3>
       <Form>
         <Radio
@@ -85,8 +94,8 @@ export default function Landing() {
           onChange={(e) => setSelectedExamSize(e.target.value)}
         />
       </Form>
+      <br />
       <button onClick={handleStart}>Start</button>
     </div>
   );
 }
-

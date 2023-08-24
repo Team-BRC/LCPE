@@ -10,13 +10,13 @@ export default function QuestionProvider({ children }) {
   useEffect(() => {
     try {
       async function getSheets() {
-        console.log("is this working??");
         const response = await fetchData();
         const sheet = await response;
         console.log(sheet.values);
         for (let i = 1; i < sheet.values.length; i++) {
           let questionObj = {};
           let question = sheet.values[i];
+          console.log(question[9])
           questionObj = {
             SubCatNum: question[0],
             Category: question[1],
@@ -27,8 +27,9 @@ export default function QuestionProvider({ children }) {
             C: question[6],
             D: question[7],
             Answer: question[8],
-            Explanation: question[9],
+            Explained: question[9],
             Picture: question[10],
+            Flag: false
           };
           bestSheetsDupe.push(questionObj);
         }
