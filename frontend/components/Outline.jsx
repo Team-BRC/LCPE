@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Button, Menu, Sidebar } from "semantic-ui-react";
+import { Button, Menu, Sidebar, Icon } from "semantic-ui-react";
 
 const changeQuestion = (
   questionId,
@@ -32,7 +32,12 @@ const Outline = ({
 
   return (
     <>
-      <Button content={questionCategory} onClick={() => setVisible(true)} />
+      <Button
+        color="grey"
+        // content={questionCategory}
+        onClick={() => setVisible(true)}
+      ><Icon name="sidebar" size="large" /></Button>
+      
       <Sidebar
         as={Menu}
         animation="overlay"

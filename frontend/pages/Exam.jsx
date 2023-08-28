@@ -3,7 +3,15 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Timer from "../components/Timer";
 import ExitButton from "../components/ExitButton";
 import Outline from "../components/Outline";
-import { Form, Radio, Progress, Container, Header } from "semantic-ui-react";
+import {
+  Icon,
+  Form,
+  Radio,
+  Progress,
+  Container,
+  Header,
+  Button,
+} from "semantic-ui-react";
 import PopUp from "../components/PopUp";
 
 const Exam = () => {
@@ -118,78 +126,113 @@ const Exam = () => {
 
   return (
     <>
+      <section className="outlineAndExit">
+        <Outline
+          questionCategory={question.category}
+          setIndex={setIndex}
+          setQuestion={setQuestion}
+          setSelectedValue={setSelectedValue}
+          pagination={pagination}
+          test={test}
+        />
+        <Timer
+          totalSeconds={totalSeconds}
+          remainingTime={remainingTime}
+          setRemainingTime={setRemainingTime}
+          onTimerDone={() => setIsTimerDone(true)}
+        />
+        <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
+      </section>
+
       <ExamProgress />
-      <Timer
-        totalSeconds={totalSeconds}
-        remainingTime={remainingTime}
-        setRemainingTime={setRemainingTime}
-        onTimerDone={() => setIsTimerDone(true)}
-      />
-      <h2>Question: {index + 1}</h2>
+      <section className="flagAndQuestionNumber">
+        <h2>Question: {index + 1}</h2>
+        <div className="flagButtonContainer">
+          <Button size="tiny" color="orange" onClick={flagQuestion}>
+            {!pagination[index].flag ? (
+              <i className="flag outline icon" id="flag"></i>
+            ) : (
+              <i className="flag icon" id="flag"></i>
+            )}
+          </Button>
+        </div>
+      </section>
+
       <h3>{question.question}</h3>
-      <Form>
+
+      <Form className="examQuestions">
         <Form.Field>
-          <Radio
-            label={question.a}
+          <Button
+            color={selectedValue === "A" ? "black" : "gray"}
+            className="questionButton"
             name="radioGroup"
             value="a"
             checked={selectedValue === "A"}
-            onChange={() => handleRadioChange("A")}
-          />
+            onClick={() => handleRadioChange("A")}
+          >
+            {question.a}
+          </Button>
         </Form.Field>
         <Form.Field>
-          <Radio
-            label={question.b}
+          <Button
+            color={selectedValue === "B" ? "black" : "gray"}
+            className="questionButton"
             name="radioGroup"
             value="b"
             checked={selectedValue === "B"}
-            onChange={() => handleRadioChange("B")}
-          />
+            onClick={() => handleRadioChange("B")}
+          >
+            {question.b}
+          </Button>
         </Form.Field>
         <Form.Field>
-          <Radio
-            label={question.c}
+          <Button
+            color={selectedValue === "C" ? "black" : "gray"}
+            className="questionButton"
             name="radioGroup"
             value="c"
             checked={selectedValue === "C"}
-            onChange={() => handleRadioChange("C")}
-          />
+            onClick={() => handleRadioChange("C")}
+          >
+            {question.c}
+          </Button>
         </Form.Field>
         <Form.Field>
-          <Radio
-            label={question.d}
+          <Button
+            color={selectedValue === "D" ? "black" : "gray"}
+            className="questionButton"
             name="radioGroup"
             value="d"
             checked={selectedValue === "D"}
-            onChange={() => handleRadioChange("D")}
-          />
+            onClick={() => handleRadioChange("D")}
+          >
+            {question.d}
+          </Button>
         </Form.Field>
       </Form>
+      <br />
 
       <section className="questionButtons">
         {index + 1 === 1 ? "" : <button onClick={backFunc}>Back</button>}
-        <button onClick={flagQuestion}>
-          {!pagination[index].flag ? (
-            <i className="flag outline icon"></i>
-          ) : (
-            <i className="flag icon"></i>
-          )}
-        </button>
+        {test.progress >= Number(test.totalQuestions) && (
+          <section className="submitSection">
+            <Button
+              color="green"
+              size="large"
+              onClick={() => navigate("/results")}
+              className="submitExamButton"
+            >
+              Submit Exam
+            </Button>
+          </section>
+        )}
+
         {index + 1 === Number(test.totalQuestions) ? (
           ""
         ) : (
           <button onClick={nextFunc}>Next</button>
         )}
       </section>
-      <Outline
-        questionCategory={question.category}
-        setIndex={setIndex}
-        setQuestion={setQuestion}
-        setSelectedValue={setSelectedValue}
-        pagination={pagination}
-        test={test}
-      />
-      <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} />
 
       {showModal && (
         <PopUp

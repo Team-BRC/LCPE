@@ -24,7 +24,7 @@ function ExitButton({ remainingTime, totalSeconds }) {
       onOpen={() => setOpen(true)}
       open={open}
       size="small"
-      trigger={<Button>End Exam</Button>}
+      trigger={<Button color="red"><Icon size="large" link name='sign out alternate' /></Button>}
     >
       <Header icon>
         <Icon name="archive" />

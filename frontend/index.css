@@ -89,7 +89,7 @@ button:focus-visible {
 }
 
 .progressBar {
-  width: 90vw;
+  width: 50vw;
 }
 .questionButtons {
   display: flex;
@@ -99,6 +99,28 @@ button:focus-visible {
 
 Button {
   width: 25%;
+}
+
+.ui.red.button {
+  box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  width: 14%;
+}
+
+.ui.grey.button {
+  box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  width: 14%;
+}
+
+Button i {
+  text-align: center !important;
+  width: 50% !important; /* Set a specific width for the element */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  vertical-align: auto;
+}
+
+i {
+  text-align: center !important;
 }
 
 #main h3 {
@@ -139,6 +161,21 @@ Button {
   color: #f9f9f9;
 }
 
+.outlineAndExit Button {
+  font-size: 0.95rem !important;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 8%;
+}
+.outlineAndExit {
+  display: flex;
+  justify-content: space-around;
+  width: 100vw;
+}
+.submitSection Button{
+  width: 75%;
+}
 /* Define a fixed height for the container */
 .scroll-container {
   height: 55vh; /* Adjust the height as needed */
@@ -147,7 +184,46 @@ Button {
   border: 2px solid #313231; /* Add a border for styling */
   padding: 10px; /* Add some padding for spacing */
 }
+.flagAndQuestionNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+}
+.flagButtonContainer {
+  margin-left: 2vw; /* Adjust this value to your preference */
+  height: 6vh;
+}
+.flagAndQuestionNumber Button {
+  text-align: center;
+}
+#flag {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+  margin-left: 5px;
+  height: 10px;
+}
+.questionButton {
+  width: 35vw;
+}
+.examQuestions {
+  width: 75vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+.ui.orange.button {
+  width: 3.5vw;
+  height: 4.5vh;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
