@@ -4,12 +4,16 @@ import { Form, Radio } from "semantic-ui-react";
 import QuestionContext from "../context/QuestionContext";
 import Test from "../Test";
 
+import googleSheets from "../components/GoogleSheetsAPI";
+
 export default function Landing() {
   const [minutes, setMinutes] = useState(0);
   const [timerType, setTimerType] = useState("noTimer"); // state to track the radio selection
   const [selectedExamSize, setSelectedExamSize] = useState(175);
   const navigate = useNavigate();
   const { questions } = useContext(QuestionContext);
+
+  
 
   function handleExamGeneration(questions, selectedExamSize) {
     const examInstance = new Test(selectedExamSize);

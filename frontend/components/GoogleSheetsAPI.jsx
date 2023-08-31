@@ -1,60 +1,17 @@
-// import fetchData from "/index.js";
-// import React, { useEffect, useState } from "react";
-// // import QuestionContext from "./QuestionContext";
-// const bestSheetsDupe = [];
+const spreadsheetId = "1W2zM3dAoI4NV4OP03AoPlF1xx6seHYREuljTVfNv3NY";
+const sheetId = "Sheet1!A:K";
+const key = "4c2866d904cf2de5bc9b7399c9c286db15ffabb4";
+var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetId}?key=${key}`;
 
-// const MyContext = () => {
-//   const [questions, setQuestions] = useState([]);
-//   const [test, setTest] = useState(null);
-//   useEffect(() => {
-//     try {
-//       async function getSheets() {
-//         const response = await fetchData();
-//         const sheet = await response;
-//         console.log(sheet.values);
-//         for (let i = 1; i < sheet.values.length; i++) {
-//           let questionObj = {};
-//           let question = sheet.values[i];
-//           questionObj = {
-//             SubCatNum: question[0],
-//             Category: question[1],
-//             Subcategory: question[2],
-//             Question: question[3],
-//             A: question[4],
-//             B: question[5],
-//             C: question[6],
-//             D: question[7],
-//             Answer: question[8],
-//             Explanation: question[9],
-//             Picture: question[10],
-//           };
-//           bestSheetsDupe.push(questionObj);
-//         }
-//         setQuestions(bestSheetsDupe);
-//         return bestSheetsDupe
-//       }
-//       getSheets();
-//     } catch (error) {
-//       console.log(error);
-//     }
-//     getSheets(bestSheetsDupe);
-//   }, []);
+async function googleSheets() {
+  var response = await fetch(url, {
+    method: "GET",
+    mode: "no-cors",
+    headers: {
+      Host: "sheets.googleapis.com",
+    },
+  });
+  console.log(response);
+}
 
-//   return <>{bestSheetsDupe}</>;
-// };
-
-// export default MyContext;
-/**----------------------------------------- */
-// best Sheets function if needed 
-// const API =
-//   "https://sheet.best/api/sheets/479ee362-5a23-4222-9559-2429138784fd";
-
-    // try {
-    //   async function getQuestions() {
-    //     const response = await fetch(API);
-    //     const data = await response.json();
-    //     console.log(data)
-    //     setQuestions(data);
-    //     return data;
-    //   }
-    //   getQuestions();
+export default googleSheets;

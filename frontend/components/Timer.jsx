@@ -32,7 +32,7 @@ const Timer = ({
   }, [totalSeconds, remainingTime, setRemainingTime, onTimerDone]);
 
   if (totalSeconds > 0) {
-    return <div>{formatTime(remainingTime)}</div>;
+    return <div className="timer">{formatTime(remainingTime)}</div>;
   }
 };
 

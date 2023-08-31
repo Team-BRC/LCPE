@@ -6,12 +6,23 @@ export default function QuestionProvider({ children }) {
   const [questions, setQuestions] = useState([]);
   const [test, setTest] = useState(null);
   const bestSheetsDupe = [];
+  const spreadsheetId = "1W2zM3dAoI4NV4OP03AoPlF1xx6seHYREuljTVfNv3NY";
+  const sheetId = "Sheet1!A:K";
+  const key = "AIzaSyAnlgDEjvDngsnvlvbhC9MQLfrA3CPtGAM";
+  var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetId}?key=${key}`;
 
   useEffect(() => {
     try {
-      async function getSheets() {
-        const response = await fetchData();
-        const sheet = await response;
+      async function googleSheets() {
+        var response = await fetch(url, {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Host: "sheets.googleapis.com",
+            'Content-Type': "application/json",
+          },
+        });
+        const sheet = await response.json();
         for (let i = 1; i < sheet.values.length; i++) {
           let questionObj = {};
           let question = sheet.values[i];
@@ -27,14 +38,15 @@ export default function QuestionProvider({ children }) {
             Answer: question[8],
             Explained: question[9],
             Picture: question[10],
-            Flag: false
+            Flag: false,
           };
           bestSheetsDupe.push(questionObj);
         }
         setQuestions(bestSheetsDupe);
         return bestSheetsDupe;
       }
-      getSheets();
+      // getSheets();
+      googleSheets();
     } catch (error) {
       console.log(error);
     }

@@ -13,6 +13,47 @@
   -webkit-text-size-adjust: 100%;
 }
 
+ul {
+  padding: 0;
+  list-style: none; /* To remove the default bullet points */
+}
+
+.answerCard {
+  min-width: 65vw !important;
+  max-width: 100vw !important;
+  height: 45vh;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rightAnswer{
+  color: green;
+}
+.wrongAnswer{
+  color: red;
+}
+
+.timer{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+#resultCard {
+  width: 94vw;
+  height: 60vh;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+.exit {
+  display: none !important;
+}
+.exitButtonContainer {
+  display: none !important;
+}
+
 #root {
   display: flex;
   height: 100vh;
@@ -25,6 +66,11 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+.ui.left.sidebar,
+.ui.right.sidebar {
+  width: 25% !important;
 }
 
 li {
@@ -98,7 +144,7 @@ button:focus-visible {
 }
 
 Button {
-  width: 25%;
+  min-width: 20%;
 }
 
 .ui.red.button {
@@ -119,6 +165,10 @@ Button i {
   vertical-align: auto;
 }
 
+.questionButton {
+  min-width: 45vw !important;
+}
+
 i {
   text-align: center !important;
 }
@@ -133,10 +183,9 @@ i {
 }
 
 .flaggedQuestionParent {
-  margin-top: 45%;
   display: flex;
   flex-direction: column;
-  width: 25.5vw;
+
   height: 90vh;
   justify-content: space-evenly;
 }
@@ -166,14 +215,14 @@ i {
   display: flex;
   text-align: center;
   justify-content: center;
-  width: 8%;
+  /* width: 8%; */
 }
 .outlineAndExit {
   display: flex;
   justify-content: space-around;
   width: 100vw;
 }
-.submitSection Button{
+.submitSection Button {
   width: 75%;
 }
 /* Define a fixed height for the container */
@@ -197,6 +246,11 @@ i {
 .flagAndQuestionNumber Button {
   text-align: center;
 }
+
+.flaggedQuestion button {
+  width: 25vw !important;
+}
+
 #flag {
   text-align: center;
   display: flex;
@@ -230,10 +284,102 @@ i {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-height: 680px), screen and (orientation: portrait) {
+  /* … */
+  body {
+    width: 100vw;
+    height: 100vh;
+  }
+  button {
+    width: 85vw;
+  }
+  .flagAndQuestionNumber h2 {
+    font-size: 21.1px;
+  }
+
+  .flagAndQuestionNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44vw;
+  }
+  Sidebar {
+    min-width: 75vw !important;
+  }
+  .progressBar {
+    width: 85vw;
+  }
+  .questionButton {
+    min-width: 75vw !important;
+  }
+  .examQuestions {
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .questionButtons {
+    width: 55vw;
+  }
+
+  .questionButtons button {
+    width: 25vw;
+  }
+
+  .flaggedQuestionParent {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .outlineAndExit Button {
+    font-size: 0.95rem !important;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 85%;
+  }
+
+  .ui.left.sidebar,
+  .ui.right.sidebar {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+
+  .exit {
+    display: flex !important;
+    width: 5% !important;
+    margin-right: 2% !important;
+  }
+
+  .exitButtonContainer {
+    margin-top: 4%;
+
+    display: flex !important;
+    justify-content: end;
+    width: 100vw !important;
+  }
+
+  Button {
+    min-width: 25%;
+  }
+  .answerCard {
+   min-width: 90vw !important;
+    height: 45vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

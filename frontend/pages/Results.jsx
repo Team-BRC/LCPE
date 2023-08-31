@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Card, Icon, Image } from "semantic-ui-react";
+
 export default function Results() {
   const navigate = useNavigate();
 
   const test = JSON.parse(localStorage.getItem("test"));
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   console.log();
   const resultInPercent = Math.round(
     (Number(test.correctAnswers) / Number(test.totalQuestions)) * 100
@@ -46,23 +47,41 @@ export default function Results() {
         Final Result: {Number(test.correctAnswers)} out of{" "}
         {Number(test.totalQuestions)}{" "}
       </h3>
-      <div className="scroll-container">
+
+      <Card
+        className="scroll-container"
+        id="resultCard"
+        color="olive"
+        centered="true"
+      >
         <ul>
           {test.incorrect.map((question) => (
-            <li key={question.id}>
+            <Card
+              key={question.id}
+              color="violet"
+              className="answerCard"
+              fluid="true"
+              centered="true"
+            >
+              <Card.Header>
+                <h3>
+                  Question: {question.id} {question.question}
+                </h3>
+              </Card.Header>
               <br />
-              <h4>
-                Question: {question.id} {question.question}
-              </h4>
-
-              <p>Selected Answer: {wrongAnswer(question)}</p>
-
-              <p>Correct Answer: {correctAnswer(question)}</p>
-              <h4>Explanation: {question.explained}</h4>
-            </li>
+              <Card.Description>
+                <h5 className="wrongAnswer">
+                  Selected Answer: {wrongAnswer(question)}
+                </h5>
+                <h5 className="rightAnswer">
+                  Correct Answer: {correctAnswer(question)}
+                </h5>
+                <h4>Explanation: {question.explained}</h4>
+              </Card.Description>
+            </Card>
           ))}
         </ul>
-      </div>
+      </Card>
       <button onClick={goHome}>Return Home</button>
     </>
   );

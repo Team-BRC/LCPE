@@ -36,19 +36,22 @@ const Outline = ({
         color="grey"
         // content={questionCategory}
         onClick={() => setVisible(true)}
-      ><Icon name="sidebar" size="large" /></Button>
-      
+      >
+        <Icon name="sidebar" size="large" />
+      </Button>
+
       <Sidebar
         as={Menu}
-        animation="overlay"
+        animation="push"
         icon="labeled"
         inverted
         onHide={() => setVisible(false)}
         vertical
         visible={visible}
+        className="sidebar"
         width="wide"
       >
-        <Menu pointing secondary vertical className="menu">
+        {/* <Menu pointing secondary vertical className="menu">
           <h5>Categories</h5>
           {Object.keys(categoryList).map((category) => {
             return (
@@ -65,7 +68,12 @@ const Outline = ({
               ></Menu.Item>
             );
           })}
-        </Menu>
+        </Menu> */}
+        <div className="exitButtonContainer">
+          <Button onClick={() => setVisible(false)} className="exit" color="violet">
+            Close
+          </Button>
+        </div>
         <div className="flaggedQuestionParent">
           <h5>Flagged Questions</h5>
           {Object.keys(flaggedQuestions).map((questionId) => {
