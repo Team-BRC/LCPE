@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/LCPE/",
+  base: '/LCPE/',
   build: {
     outDir: path.join(__dirname, "..", "public"),
     emptyOutDir: true,
