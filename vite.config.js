@@ -21,6 +21,9 @@ export default defineConfig({
     },
   },
   serve: {
-    static: ["public"],
+    static: ["./src"],
+    mimeTypes: {
+      "text/jsx": "application/javascript",
+    },
   },
 });
