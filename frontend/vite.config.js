@@ -20,4 +20,7 @@ export default defineConfig({
       },
     },
   },
+  serve: {
+    static: ["public"],
+  },
 });
