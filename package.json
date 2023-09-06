@@ -16,7 +16,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-
   "dependencies": {
     "@babel/core": "^7.22.10",
     "@babel/preset-env": "^7.22.10",
