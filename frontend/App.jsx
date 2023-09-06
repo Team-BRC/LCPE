@@ -1,7 +1,7 @@
 // import QuestionProvider from "./context/QuestionProvider";
 import React, { useEffect, useState } from "react";
 import { Container, Header } from "semantic-ui-react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import HeadingNavigation from "./components/HeadingNavigation";
 import Landing from "./pages/Landing";
 import Exam from "./pages/Exam";
@@ -16,7 +16,7 @@ function App() {
       <Container fluid>
         <HeadingNavigation />
         <main id="main">
-          <BrowserRouter>
+          <HashRouter>
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/exam" element={<Exam />} />
@@ -25,7 +25,7 @@ function App() {
               <Route path="/results" element={<Results />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </main>
       </Container>
     </>
