@@ -1,14 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   base: "/LCPE/",
-  jsx: {
-    compiler: {
-      jsx: "preserve",
+  server: {
+    mimeTypes: {
+      "application/javascript": [".js", ".jsx"],
     },
   },
 });
