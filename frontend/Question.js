@@ -27,6 +27,7 @@ class QuestionClass {
     this.flag = Flag;
     this.selectedAnswer = null;
     this.ifCorrect = null;
+    this.increment = false; 
   }
 
   static restartCounter() {

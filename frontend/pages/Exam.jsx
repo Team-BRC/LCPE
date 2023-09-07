@@ -80,7 +80,11 @@ const Exam = () => {
 
   const handleRadioChange = (value) => {
     setSelectedValue(value);
-    pagination[index].selectedAnswer = value;
+    if ((pagination[index].selectedAnswer = value) && pagination[index].increment === false) {
+      test.progress = progress + 1;
+      setProgess(test.progress);
+      pagination[index].increment = true;
+    }
 
     if (pagination[index].selectedAnswer === pagination[index].answer) {
       const correctAnswers = parseInt(test.correctAnswers || 0);
@@ -88,9 +92,6 @@ const Exam = () => {
     } else {
       test.incorrect.push(pagination[index]);
     }
-
-    test.progress = progress + 1;
-    setProgess(test.progress);
 
     const updatedTest = { ...test };
     updatedTest.allQuestions[pagination[index].id].selectedAnswer = value;
@@ -163,7 +164,7 @@ const Exam = () => {
       <Form className="examQuestions">
         <Form.Field>
           <Button
-            color={selectedValue === "A" ? "black" : "gray"}
+            color={selectedValue === "A" ? "black" : ""}
             className="questionButton"
             name="radioGroup"
             value="a"
@@ -175,7 +176,7 @@ const Exam = () => {
         </Form.Field>
         <Form.Field>
           <Button
-            color={selectedValue === "B" ? "black" : "gray"}
+            color={selectedValue === "B" ? "black" : ""}
             className="questionButton"
             name="radioGroup"
             value="b"
@@ -187,7 +188,7 @@ const Exam = () => {
         </Form.Field>
         <Form.Field>
           <Button
-            color={selectedValue === "C" ? "black" : "gray"}
+            color={selectedValue === "C" ? "black" : ""}
             className="questionButton"
             name="radioGroup"
             value="c"
@@ -199,7 +200,7 @@ const Exam = () => {
         </Form.Field>
         <Form.Field>
           <Button
-            color={selectedValue === "D" ? "black" : "gray"}
+            color={selectedValue === "D" ? "black" : ""}
             className="questionButton"
             name="radioGroup"
             value="d"
@@ -253,4 +254,3 @@ const Exam = () => {
 };
 
 export default Exam;
-
