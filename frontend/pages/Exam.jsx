@@ -80,7 +80,10 @@ const Exam = () => {
 
   const handleRadioChange = (value) => {
     setSelectedValue(value);
-    if ((pagination[index].selectedAnswer = value) && pagination[index].increment === false) {
+    if (
+      (pagination[index].selectedAnswer = value) &&
+      pagination[index].increment === false
+    ) {
       test.progress = progress + 1;
       setProgess(test.progress);
       pagination[index].increment = true;
@@ -186,31 +189,36 @@ const Exam = () => {
             {question.b}
           </Button>
         </Form.Field>
-        <Form.Field>
-          <Button
-            color={selectedValue === "C" ? "black" : ""}
-            className="questionButton"
-            name="radioGroup"
-            value="c"
-            checked={selectedValue === "C"}
-            onClick={() => handleRadioChange("C")}
-          >
-            {question.c}
-          </Button>
-        </Form.Field>
-        <Form.Field>
-          <Button
-            color={selectedValue === "D" ? "black" : ""}
-            className="questionButton"
-            name="radioGroup"
-            value="d"
-            checked={selectedValue === "D"}
-            onClick={() => handleRadioChange("D")}
-          >
-            {question.d}
-          </Button>
-        </Form.Field>
+        {question.c && ( // Check if question.c has a value
+          <Form.Field>
+            <Button
+              color={selectedValue === "C" ? "black" : ""}
+              className="questionButton"
+              name="radioGroup"
+              value="c"
+              checked={selectedValue === "C"}
+              onClick={() => handleRadioChange("C")}
+            >
+              {question.c}
+            </Button>
+          </Form.Field>
+        )}
+        {question.d && ( // Check if question.d has a value
+          <Form.Field>
+            <Button
+              color={selectedValue === "D" ? "black" : ""}
+              className="questionButton"
+              name="radioGroup"
+              value="d"
+              checked={selectedValue === "D"}
+              onClick={() => handleRadioChange("D")}
+            >
+              {question.d}
+            </Button>
+          </Form.Field>
+        )}
       </Form>
+
       <br />
 
       <section className="questionButtons">
