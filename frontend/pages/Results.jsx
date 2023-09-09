@@ -51,14 +51,14 @@ export default function Results() {
       <Card
         className="scroll-container"
         id="resultCard"
-        color="olive"
+
         centered="true"
       >
         <ul>
           {test.incorrect.map((question) => (
             <Card
               key={question.id}
-              color="violet"
+
               className="answerCard"
               fluid="true"
               centered="true"
