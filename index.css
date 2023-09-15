@@ -12,14 +12,42 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.ui.fluid.container {
+  width: 100vw !important;
+}
 
 ul {
   padding: 0;
   list-style: none; /* To remove the default bullet points */
 }
 
-.progress {
-  margin-left: 5% !important;
+.ui.violet.button, .ui.violet.buttons .button {
+  background-color: #6435c9;
+  color: #fff;
+  text-shadow: none;
+  background-image: none;
+  height: 2.5em;
+}
+
+#exitAndViewResults {
+  width: 50%; /* Change to a percentage value */
+}
+
+#exitAndViewResults button {
+  width: 10vw; /* Use viewport width units */
+  height: 12vh; /* Use viewport height units */
+}
+
+#exitAndViewResults h6 {
+  text-align: center;
+  display: flex;
+  font-size: 1em;
+  align-items: center;
+  margin: 0;
+}
+
+#content {
+  width: 75vw; /* Use viewport width units */
 }
 
 .answerCard {
@@ -50,11 +78,11 @@ ul {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px !important;
 }
-.description h5{
+.description h5 {
   font-size: 1.35rem;
 }
 
-.description h4{
+.description h4 {
   font-size: 1.35rem;
 }
 
@@ -62,8 +90,8 @@ ul {
   width: 90vw;
 }
 
-.sidebar {
-  width: 100%;
+#sidebar {
+  width: 100vw;
 }
 
 .exit {
@@ -76,6 +104,7 @@ ul {
 #root {
   display: flex;
   height: 100vh;
+  width: 100vw !important;
 }
 
 #main {
@@ -111,7 +140,6 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  /* min-height: 100vh; */
   justify-content: center;
   align-content: space-evenly;
 }
@@ -205,11 +233,15 @@ i {
 }
 
 .flaggedQuestionParent {
+  margin-top: 3vh;
   display: flex;
   flex-direction: column;
-
-  height: 90vh;
+  height: 95vh;
   justify-content: space-evenly;
+  
+}
+.flaggedQuestionList{
+  overflow-y: auto; /* Add a vertical scrollbar if necessary */
 }
 
 .flaggedQuestion {
@@ -242,7 +274,7 @@ i {
 .outlineAndExit {
   display: flex;
   justify-content: space-around;
-  width: 100vw;
+  width: 95vw;
 }
 .submitSection Button {
   width: 75%;
@@ -317,6 +349,12 @@ i {
   align-items: center;
 }
 
+.ui.basic.modal > .header {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -375,18 +413,27 @@ i {
   }
 
   .flaggedQuestionParent {
+
     display: flex;
     flex-direction: column;
     height: 90vh;
-    align-items: center;
     justify-content: space-evenly;
+    
   }
+
+  .flaggedQuestionList{
+    overflow-y: auto; /* Add a vertical scrollbar if necessary */
+  }
+  
+
   .outlineAndExit Button {
-    font-size: 0.95rem !important;
+    font-size: 1.075rem !important;
     display: flex;
     text-align: center;
     justify-content: center;
-    width: 85%;
+    width: 100vw;
+    padding-top: 5%;
+
   }
 
   .ui.left.sidebar,
@@ -431,16 +478,32 @@ i {
   }
 
   #main h3 {
-    font-size: 1.2rem;
+    font-size: 2.6vh;
   }
 
-
-
-  .description h5{
+  .description h5 {
     font-size: 1.1rem;
   }
-  
-  .description h4{
-    font-size: 1.1rem;
+
+  .description h4 {
+    font-size: 1.6vh;
+  }
+
+  #exitAndViewResults button {
+    width: 40vw;
+    height: 8vh;
+  }
+
+  #exitAndViewResults h6 {
+    text-align: center;
+    display: flex;
+    font-size: 1em;
+    align-items: center;
+    margin: 0;
+  }
+
+  #content {
+    text-align: center;
+    width: 55vw;
   }
 }

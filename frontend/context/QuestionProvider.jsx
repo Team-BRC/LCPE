@@ -6,9 +6,13 @@ export default function QuestionProvider({ children }) {
   const [questions, setQuestions] = useState([]);
   const [test, setTest] = useState(null);
   const bestSheetsDupe = [];
-  const spreadsheetId = "1W2zM3dAoI4NV4OP03AoPlF1xx6seHYREuljTVfNv3NY";
+  const spreadsheetId = "1W2zM3dAoI4NV4OP03AoPlF1xx6seHYREuljTVfNv3NY"; // Mathew SpreadSheet ID
+  // const spreadsheetId = "1xGyWfPLPnys5YWSkJ4UJJw-Q8iCVfl4z-de_mmQHCAQ";
+
   const sheetId = "Sheet1!A:K";
-  const key = "AIzaSyAnlgDEjvDngsnvlvbhC9MQLfrA3CPtGAM";
+
+  const key = "AIzaSyAnlgDEjvDngsnvlvbhC9MQLfrA3CPtGAM"; // Mathew API Key
+  // const key = "AIzaSyBpVHsMtN7concf0VgTeZGVRlTOhjd5taE";
   var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetId}?key=${key}`;
 
   useEffect(() => {
@@ -19,10 +23,11 @@ export default function QuestionProvider({ children }) {
           mode: "cors",
           headers: {
             Host: "sheets.googleapis.com",
-            'Content-Type': "application/json",
+            "Content-Type": "application/json",
           },
         });
         const sheet = await response.json();
+        console.log(sheet);
         for (let i = 1; i < sheet.values.length; i++) {
           let questionObj = {};
           let question = sheet.values[i];

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Menu, Sidebar, Icon } from "semantic-ui-react";
 
@@ -49,54 +49,42 @@ const Outline = ({
         onHide={() => setVisible(false)}
         vertical
         visible={visible}
-        className="sidebar"
+        id="sidebar"
         width="wide"
       >
-        {/* <Menu pointing secondary vertical className="menu">
-          <h5>Categories</h5>
-          {Object.keys(categoryList).map((category) => {
-            return (
-              <Menu.Item
-                key={category}
-                id="menuItems"
-                as={Link}
-                name={category}
-                active={category === questionCategory}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setVisible(false);
-                }}
-              ></Menu.Item>
-            );
-          })}
-        </Menu> */}
         <div className="exitButtonContainer">
-          <Button onClick={() => setVisible(false)} className="exit" color="violet">
+          <Button
+            onClick={() => setVisible(false)}
+            className="exit"
+            color="violet"
+          >
             Close
           </Button>
         </div>
         <div className="flaggedQuestionParent">
           <h5>Flagged Questions</h5>
-          {Object.keys(flaggedQuestions).map((questionId) => {
-            const question = flaggedQuestions[questionId];
-            return (
-              <button
-                key={questionId}
-                className="flaggedQuestion"
-                onClick={() =>
-                  changeQuestion(
-                    question.id,
-                    setIndex,
-                    setQuestion,
-                    setSelectedValue,
-                    pagination
-                  )
-                }
-              >
-                {question.id} {question.question}
-              </button>
-            );
-          })}
+          <div className="flaggedQuestionList">
+            {Object.keys(flaggedQuestions).map((questionId) => {
+              const question = flaggedQuestions[questionId];
+              return (
+                <button
+                  key={questionId}
+                  className="flaggedQuestion"
+                  onClick={() =>
+                    changeQuestion(
+                      question.id,
+                      setIndex,
+                      setQuestion,
+                      setSelectedValue,
+                      pagination
+                    )
+                  }
+                >
+                  {question.id} {question.question}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </Sidebar>
     </>

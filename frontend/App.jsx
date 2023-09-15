@@ -14,7 +14,6 @@ function App() {
   return (
     <>
       <Container fluid>
-        <HeadingNavigation />
         <main id="main">
           <HashRouter>
             <Routes>

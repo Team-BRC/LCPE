@@ -25,12 +25,13 @@ function ExitButton({ remainingTime, totalSeconds }) {
       open={open}
       size="small"
       trigger={<Button color="red"><Icon size="large" link name='sign out alternate' /></Button>}
+      id="exitAndViewResults"
     >
       <Header icon>
         <Icon name="archive" />
         End Exam
       </Header>
-      <Modal.Content>
+      <Modal.Content id="content">
         {totalSeconds > 0 ? (
           <p>
             You still have {formatTime(remainingTime)} left, are you sure you
@@ -53,10 +54,10 @@ function ExitButton({ remainingTime, totalSeconds }) {
             navigate("/results");
           }}
         >
-          <Icon name="remove" /> Finish and View Results
+         <h6> <Icon name="remove" /> Finish and View Results </h6>
         </Button>
         <Button color="green" inverted onClick={() => setOpen(false)}>
-          <Icon name="checkmark" /> Continue Exam
+           <h6> <Icon name="checkmark" /> Continue Exam</h6>
         </Button>
       </Modal.Actions>
     </Modal>
