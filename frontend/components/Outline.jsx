@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button, Menu, Sidebar, Icon } from "semantic-ui-react";
+import "../app/index.css";
 
 const changeQuestion = (
   questionId,
@@ -24,12 +24,23 @@ const Outline = ({
   setQuestion,
   setSelectedValue,
   pagination,
+  test
 }) => {
+
   const [visible, setVisible] = useState(false);
-  const flaggedQuestions = JSON.parse(localStorage.getItem("test")).flagged;
-  const categoryList = JSON.parse(
-    localStorage.getItem("test")
-  ).listOfCategories;
+  // const [test, setTest] = useState([])
+  const [flaggedQuestions, setFlaggedQuestions] = useState([])
+  const [categoryList, setCategoryList] = useState([])
+
+  useEffect(() => {
+    // Check if running on the client side before accessing localStorage
+    if (typeof window !== 'undefined') {
+      // setTest(JSON.parse(localStorage.getItem('test')));
+      // Ensure 'test' is not null before accessing 'allQuestions'
+      setFlaggedQuestions(test.flagged)
+      setCategoryList(test.listOfCategories)
+    }
+  }, []);
 
   return (
     <>
@@ -64,7 +75,7 @@ const Outline = ({
         <div className="flaggedQuestionParent">
           <h5>Flagged Questions</h5>
           <div className="flaggedQuestionList">
-            {Object.keys(flaggedQuestions).map((questionId) => {
+            {flaggedQuestions ? (Object.keys(flaggedQuestions).map((questionId) => {
               const question = flaggedQuestions[questionId];
               return (
                 <button
@@ -83,7 +94,7 @@ const Outline = ({
                   {question.id} {question.question}
                 </button>
               );
-            })}
+            })) : <></>}
           </div>
         </div>
       </Sidebar>

@@ -1,61 +1,47 @@
-import React, { useEffect, useState } from "react";
-import QuestionContext from "./QuestionContext";
-// import fetchData from "./index.js";
+import { useEffect, useState } from 'react';
+import { QuestionContext } from './QuestionContext';
 
-export default function QuestionProvider({ children }) {
+const QuestionProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
-  const [test, setTest] = useState(null);
-  const bestSheetsDupe = [];
-  const spreadsheetId = "1W2zM3dAoI4NV4OP03AoPlF1xx6seHYREuljTVfNv3NY"; // Mathew SpreadSheet ID
-  // const spreadsheetId = "1xGyWfPLPnys5YWSkJ4UJJw-Q8iCVfl4z-de_mmQHCAQ";
-
-  const sheetId = "Sheet1!A:K";
-
-  const key = "AIzaSyAnlgDEjvDngsnvlvbhC9MQLfrA3CPtGAM"; // Mathew API Key
-  // const key = "AIzaSyBpVHsMtN7concf0VgTeZGVRlTOhjd5taE";
-  var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetId}?key=${key}`;
+  const [test, setTest] = useState({});
 
   useEffect(() => {
-    try {
-      async function googleSheets() {
-        var response = await fetch(url, {
+    // Define an async function to fetch questions
+    async function fetchQuestions() {
+      try {
+        const response = await fetch("http://localhost:3000/api/questions", {
           method: "GET",
           mode: "cors",
           headers: {
-            Host: "sheets.googleapis.com",
-            "Content-Type": "application/json",
+              "Content-Type": "application/json",
           },
+      });
+        const questions = await response.json();
+        setQuestions(questions.questions);
+        // Initialize the test state
+        setTest({
+          progress: 0,
+          correctAnswers: 0,
+          totalQuestions: questions.length,
+          incorrect: [],
+          flagged: {},
+          allQuestions: Array(questions.questions).reduce((acc, question, index) => {
+            acc[question.id] = {
+              selectedAnswer: null,
+              increment: false,
+              ...question,
+            };
+            return acc;
+          }, {}),
         });
-        const sheet = await response.json();
-        console.log(sheet);
-        for (let i = 1; i < sheet.values.length; i++) {
-          let questionObj = {};
-          let question = sheet.values[i];
-          questionObj = {
-            SubCatNum: question[0],
-            Category: question[1],
-            Subcategory: question[2],
-            Question: question[3],
-            A: question[4],
-            B: question[5],
-            C: question[6],
-            D: question[7],
-            Answer: question[8],
-            Explained: question[9],
-            Picture: question[10],
-            Flag: false,
-          };
-          bestSheetsDupe.push(questionObj);
-        }
-        setQuestions(bestSheetsDupe);
-        return bestSheetsDupe;
+      } catch (error) {
+        console.error('Error fetching questions:', error);
       }
-      // getSheets();
-      googleSheets();
-    } catch (error) {
-      console.log(error);
     }
-  }, []);
+
+    // Call the async function when the component mounts
+    fetchQuestions();
+  }, []); // The empty dependency array ensures that this effect runs only once
 
   const value = { questions, test, setTest };
   return (
@@ -63,4 +49,6 @@ export default function QuestionProvider({ children }) {
       {children}
     </QuestionContext.Provider>
   );
-}
+};
+
+export default QuestionProvider;

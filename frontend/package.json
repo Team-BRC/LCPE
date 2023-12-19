@@ -1,37 +1,27 @@
 {
-  "name": "lcpe",
-  "private": true,
-  "version": "0.0.0",
+  "name": "frontend",
+  "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
-  "author": "",
-  "license": "ISC",
+  "main": "page.js",
   "scripts": {
-    "devs": "nodemon .",
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@babel/core": "^7.22.10",
     "@babel/preset-env": "^7.22.10",
     "@google-cloud/local-auth": "^2.1.0",
-    "@square/web-sdk": "^2.0.1",
     "babel-loader": "^9.1.3",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "googleapis": "^105.0.0",
-    "next-transpile-modules": "^10.0.1",
+    "next": "^14.0.2",
     "node-fetch": "^3.3.2",
     "npm": "^9.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router": "^6.14.2",
-    "react-router-dom": "^6.18.0",
     "react-square-web-payments-sdk": "^3.2.1",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
@@ -55,5 +45,8 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "vite": "^4.4.5"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

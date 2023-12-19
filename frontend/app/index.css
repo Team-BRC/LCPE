@@ -68,6 +68,10 @@ ul {
   color: red;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .timer {
   font-size: 1.5rem;
   font-weight: bold;
@@ -452,7 +456,7 @@ i {
     margin-top: 4%;
 
     display: flex !important;
-    justify-content: end;
+    justify-content: flex-end;
     width: 100vw !important;
   }
 

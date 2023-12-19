@@ -43,12 +43,14 @@ class Test {
       const takenNums = new Set();
       while (takenNums.size < questionsFromEachCategory) {
         const num = Math.floor(Math.random() * totalInCategory);
+        console.log(categoryArray[num]);
         if (!takenNums.has(num)) {
           const {
             A,
             B,
             C,
             D,
+            // E,
             Answer,
             Category,
             Subcategory,
@@ -57,23 +59,82 @@ class Test {
             Picture,
             Flag
           } = categoryArray[num];
-          const newQuestion = new QuestionClass(
-            A,
-            B,
-            C,
-            D,
-            Answer,
-            Category,
-            Subcategory,
-            Question,
-            Explained,
-            Picture,
-            id,
-            Flag
-          );
-          this.addQuestion(newQuestion);
-          takenNums.add(num);
-          id++;
+
+          const tempurl = "https://drive.google.com/file/d/1D1wG2FXGf7puhJ7oI0czgVNUzHzhZwV2/view?usp=sharing";
+
+          if (tempurl){
+            // imgurl = getDirectImageUrl(Picture)
+            // Getting Picture ID from image url
+            const fileIdRegex = /\/d\/(.*?)\//;
+            const match = tempurl.match(fileIdRegex);
+            // Check if there's a match and get the file ID
+            const fileId = match && match[1];
+            // Log or use the extracted file ID
+            if (fileId) {
+              const newQuestion = new QuestionClass(
+                A,
+                B,
+                C,
+                D,
+                // E,
+                Answer,
+                Category,
+                Subcategory,
+                Question,
+                Explained,
+                `https://drive.google.com/uc?export=view&id=${fileId}`,
+                id,
+                Flag
+              );
+
+              this.addQuestion(newQuestion);
+              takenNums.add(num);
+              id++;
+
+            } else {
+              const newQuestion = new QuestionClass(
+                A,
+                B,
+                C,
+                D,
+                // E,
+                Answer,
+                Category,
+                Subcategory,
+                Question,
+                Explained,
+                "",
+                id,
+                Flag
+              );
+
+              this.addQuestion(newQuestion);
+              takenNums.add(num);
+              id++;
+            }
+
+          } else {
+            const newQuestion = new QuestionClass(
+              A,
+              B,
+              C,
+              D,
+              // E,
+              Answer,
+              Category,
+              Subcategory,
+              Question,
+              Explained,
+              "",
+              id,
+              Flag
+            );
+
+            this.addQuestion(newQuestion);
+            takenNums.add(num);
+            id++;
+          }
+  
         }
       }
     }
