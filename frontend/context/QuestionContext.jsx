@@ -1,5 +1,9 @@
-import { createContext } from "react";
+// context/QuestionContext.js
+import { createContext, useContext } from 'react';
 
-const QuestionContext = createContext();
+export const QuestionContext = createContext();
 
-export default QuestionContext;
+export function useQuestionContext() {
+    const value = useContext(QuestionContext);
+    return value
+}

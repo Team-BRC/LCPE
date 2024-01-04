@@ -40,40 +40,103 @@ class Test {
       );
       const questionsFromEachCategory =
         calculation < totalInCategory ? calculation : totalInCategory;
+      if (questionsFromEachCategory === 0){
+        alert("Add more questions to generate the exam!")
+        return null
+      }
       const takenNums = new Set();
       while (takenNums.size < questionsFromEachCategory) {
         const num = Math.floor(Math.random() * totalInCategory);
         if (!takenNums.has(num)) {
           const {
             A,
+            Answer,
             B,
             C,
-            D,
-            Answer,
             Category,
-            Subcategory,
-            Question,
+            D,
+            E,
             Explained,
+            Flag,
             Picture,
-            Flag
+            Question,
+            SubCatNum,
+            Subcategory,
           } = categoryArray[num];
-          const newQuestion = new QuestionClass(
-            A,
-            B,
-            C,
-            D,
-            Answer,
-            Category,
-            Subcategory,
-            Question,
-            Explained,
-            Picture,
-            id,
-            Flag
-          );
-          this.addQuestion(newQuestion);
-          takenNums.add(num);
-          id++;
+
+          if (Picture !== undefined){
+            // imgurl = getDirectImageUrl(Picture)
+            // Getting Picture ID from image url
+            const fileIdRegex = /\/d\/(.*?)\//;
+            const match = Picture.match(fileIdRegex);
+            // Check if there's a match and get the file ID
+            const fileId = match && match[1];
+            // Log or use the extracted file ID
+            if (fileId) {
+              const newQuestion = new QuestionClass(
+                A,
+                B,
+                C,
+                D,
+                E,
+                Answer,
+                Category,
+                Subcategory,
+                Question,
+                Explained,
+                `https://drive.google.com/uc?export=view&id=${fileId}`,
+                id,
+                Flag
+              );
+
+              this.addQuestion(newQuestion);
+              takenNums.add(num);
+              id++;
+
+            } else {
+              const newQuestion = new QuestionClass(
+                A,
+                B,
+                C,
+                D,
+                E,
+                Answer,
+                Category,
+                Subcategory,
+                Question,
+                Explained,
+                "",
+                id,
+                Flag
+              );
+
+              this.addQuestion(newQuestion);
+              takenNums.add(num);
+              id++;
+            }
+
+          } else {
+            const newQuestion = new QuestionClass(
+              A,
+              B,
+              C,
+              D,
+              E,
+              Answer,
+              Category,
+              Subcategory,
+              Question,
+              Explained,
+              "",
+              id,
+              Flag
+            );
+
+            this.addQuestion(newQuestion);
+            takenNums.add(num);
+            id++;
+          }
+  
         }
       }
     }

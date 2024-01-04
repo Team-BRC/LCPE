@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/router';
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 
 const formatTime = timeInSeconds => {
@@ -13,9 +13,9 @@ const formatTime = timeInSeconds => {
   minutes, and ${String(seconds).padStart(2, "0")} seconds`;
 };
 
-function ExitButton({ remainingTime, totalSeconds }) {
+function ExitButton({ remainingTime, totalSeconds, test }) {
   const [open, setOpen] = React.useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <Modal
@@ -45,20 +45,23 @@ function ExitButton({ remainingTime, totalSeconds }) {
         )}
       </Modal.Content>
       <Modal.Actions>
-        <Button
-          basic
-          color="red"
-          inverted
-          onClick={() => {
-            localStorage.removeItem("timer");
-            navigate("/results");
-          }}
-        >
-         <h6> <Icon name="remove" /> Finish and View Results </h6>
-        </Button>
-        <Button color="green" inverted onClick={() => setOpen(false)}>
-           <h6> <Icon name="checkmark" /> Continue Exam</h6>
-        </Button>
+        <div className="flex flex-row items-center justify-center">
+          <Button
+            basic
+            color="red"
+            inverted
+            onClick={() => {
+              localStorage.removeItem("timer");
+              localStorage.setItem("test", JSON.stringify(test));
+              router.push("/Results");
+            }}
+          >
+          <h6> <Icon name="remove" /> Finish and View Results </h6>
+          </Button>
+          <Button color="green" inverted onClick={() => setOpen(false)}>
+            <h6> <Icon name="checkmark" /> Continue Exam</h6>
+          </Button>
+        </div>
       </Modal.Actions>
     </Modal>
   );
