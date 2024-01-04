@@ -3,6 +3,7 @@ import { loginFields } from "../components/formFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
 import { useRouter } from 'next/router';
+import styles from "../app/Login.modules.css";
 
 export default function Login(){
     const router = useRouter()
@@ -11,6 +12,7 @@ export default function Login(){
     let fieldsState = {};
     fields.forEach(field=>fieldsState[field.id]='');
     const [loginState,setLoginState]=useState(fieldsState);
+    const [loading, setLoading] = useState(false);
 
     const handleChange=(e)=>{
         setLoginState({...loginState,[e.target.id]:e.target.value})
@@ -19,6 +21,7 @@ export default function Login(){
     const handleSubmit=(e)=>{
         e.preventDefault();
         authenticateUser();
+        setLoading(true);
     }
 
     //Handle Login API Integration here
@@ -45,7 +48,7 @@ export default function Login(){
             }else if (status === 401) {
                 alert("Try again! " + result.success + ". Click on the signup link below.")
             } else if (status === 400) {
-                alert("Your subscription of 6 months has expired. Click OK on the alert which will redirect you to the payment page.")
+                alert("Your subscription of 6 months has expired or you haven't paid yet. Click OK on the alert which will redirect you to the payment page.")
                 sessionStorage.setItem("userExists", "true")
                 sessionStorage.setItem("paymentExists", "false")
                 sessionStorage.setItem("id", result.id)
@@ -55,9 +58,9 @@ export default function Login(){
           } catch (error) {
             console.error('Error creating customer:', error);
             // Handle errors
-          }
-
-
+          } finally {
+            setLoading(false);
+        }
         
     }
 
@@ -83,6 +86,18 @@ export default function Login(){
                 }
             </div>
             <FormAction handleSubmit={handleSubmit} text="Login"/>
+            {loading && (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px' }}>
+                    <div className={styles.spinner} style={{
+                        border: '6px solid rgba(0, 0, 0, 0.1)',
+                        borderLeft: '6px solid #3498db',
+                        borderRadius: '50%',
+                        width: '40px',
+                        height: '40px',
+                        animation: 'spin 1s linear infinite'
+                    }}></div>
+                </div>
+            )}
       </form>
     )
 }

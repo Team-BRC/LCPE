@@ -2,7 +2,7 @@
 export default async function handler(req, res) {
     const spreadsheetId = process.env.SPREADSHEET_ID; // Mathew SpreadSheet ID
     // const spreadsheetId = "1xGyWfPLPnys5YWSkJ4UJJw-Q8iCVfl4z-de_mmQHCAQ";
-    const sheetId = "Sheet1!A:K"; // Change range once new column for answer choice is added
+    const sheetId = "Sheet1!A:L"; // Change range once new column for answer choice is added
     const key = process.env.GOOGLE_SHEETS_KEY; // Mathew API Key
     // const key = "AIzaSyBpVHsMtN7concf0VgTeZGVRlTOhjd5taE";
     var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetId}?key=${key}`;
@@ -31,10 +31,10 @@ export default async function handler(req, res) {
                 B: sheet.values[i][5],
                 C: sheet.values[i][6],
                 D: sheet.values[i][7],
-                // E: sheet.values[i][8], increase below array access numbers by one
-                Answer: sheet.values[i][8],
-                Explained: sheet.values[i][9],
-                Picture: sheet.values[i][10],
+                E: sheet.values[i][8], //increase below array access numbers by one
+                Answer: sheet.values[i][9],
+                Explained: sheet.values[i][10],
+                Picture: sheet.values[i][11],
                 Flag: false,
                 };
                 questions.push(questionObj);

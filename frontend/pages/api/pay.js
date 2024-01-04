@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       sourceId: req.body.sourceId,
       amountMoney: {
         currency: "USD",
-        amount: 100,
+        amount: 10,
       },
       customerId: req.body.customerId
     });

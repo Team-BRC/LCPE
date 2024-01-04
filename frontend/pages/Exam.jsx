@@ -151,7 +151,7 @@ export default function Exam() {
 
   const flagQuestion = () => {
     const updatedTest = { ...test };
-    if (!flag) {
+    if (!pagination[index].flag) {
       // Flag the question
       updatedTest.flagged[index] = pagination[index];
       pagination[index].flag = true;
@@ -181,177 +181,179 @@ export default function Exam() {
   return (
     <div className={styles.container}>
       <Layout>
-        {test ? (
-          <section className="flex flex-row	space-x-64 items-center justify-center margin-bottom: 20px">
-            <Outline
-              questionCategory={question.category}
-              setIndex={setIndex}
-              setQuestion={setQuestion}
-              setSelectedValue={setSelectedValue}
-              pagination={pagination}
-              test={test}
-            />
-            <Timer
-              totalSeconds={totalSeconds}
-              remainingTime={remainingTime}
-              setRemainingTime={setRemainingTime}
-              onTimerDone={() => setIsTimerDone(true)}
-            />
-            <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} test={test} />
-          </section>
-        ) : null}
+        <div style={{ overflowY: 'auto', maxHeight: '80vh' }}>
+          {test ? (
+            <section className="flex flex-row	space-x-64 items-center justify-center margin-bottom: 20px">
+              <Outline
+                setIndex={setIndex}
+                setQuestion={setQuestion}
+                setSelectedValue={setSelectedValue}
+                pagination={pagination}
+                test={test}
+              />
+              <Timer
+                totalSeconds={totalSeconds}
+                remainingTime={remainingTime}
+                setRemainingTime={setRemainingTime}
+                onTimerDone={() => setIsTimerDone(true)}
+              />
+              <ExitButton totalSeconds={totalSeconds} remainingTime={remainingTime} test={test} />
+            </section>
+          ) : null}
 
-        {test? <ExamProgress/> : null}
+          {test? <ExamProgress/> : null}
 
-        {test ? (
-          <section className="flex flex-row	space-x-4 items-center justify-center">
-            <div>
-              <Button color="orange" onClick={flagQuestion} >
-                {pagination.length !== 0 ? (
-                  !pagination[index].flag ? (
-                    <i class="flag outline icon" id="flag"></i>
+          {test ? (
+            <section className="flex flex-row	space-x-4 items-center justify-center">
+              <div>
+                <Button color="orange" onClick={flagQuestion} >
+                  {pagination.length !== 0 ? (
+                    !pagination[index].flag ? (
+                      <i class="flag outline icon" id="flag"></i>
+                    ) : (
+                      <i className="flag icon" id="flag"></i>
+                    )
                   ) : (
                     <i className="flag icon" id="flag"></i>
-                  )
-                ) : (
-                  <i className="flag icon" id="flag"></i>
-                )}
-              </Button>
+                  )}
+                </Button>
+              </div>
+              <h2>Question: {index}</h2>
+            </section>
+          ) : null}
+
+          {test ? <h3>{question.question}</h3> : null}
+
+          {test ? <br /> : null}
+
+          {test ? (
+            <div className="flex items-center justify-center">
+              {question.picture &&
+                <Image
+                  src={question.picture}
+                  alt="Your Image Alt Text"
+                  width={300} // Set to the desired width
+                  height={200} // Set to the desired height
+                />
+              }
             </div>
-            <h2>Question: {index}</h2>
-          </section>
-        ) : null}
+          ) : null}
 
-        {test ? <h3>{question.question}</h3> : null}
+          {test ? <br /> : null}
 
-        {test ? <br /> : null}
-
-        {test ? (
-          <div className="flex items-center justify-center">
-            {question.picture &&
-              <Image
-                src={question.picture}
-                alt="Your Image Alt Text"
-                width={800} // Set to the desired width
-                height={600} // Set to the desired height
-              />
-            }
-          </div>
-        ) : null}
-
-        {test ? <br /> : null}
-
-        {test ? (
-          <Form className={styles.examQuestions}>
-            <Form.Field>
-              <Button
-                color={selectedValue === "A" ? "black" : "grey"}
-                className="questionButton"
-                name="radioGroup"
-                value="a"
-                checked={selectedValue === "A"}
-                onClick={() => handleRadioChange("A")}
-              >
-                {question.a}
-              </Button>
-            </Form.Field>
-            <Form.Field>
-              <Button
-                color={selectedValue === "B" ? "black" : "grey"}
-                className="questionButton"
-                name="radioGroup"
-                value="b"
-                checked={selectedValue === "B"}
-                onClick={() => handleRadioChange("B")}
-              >
-                {question.b}
-              </Button>
-            </Form.Field>
-            {question.c && ( // Check if question.c has a value
+          {test ? (
+            <Form className={styles.examQuestions}>
               <Form.Field>
                 <Button
-                  color={selectedValue === "C" ? "black" : "grey"}
+                  color={selectedValue === "A" ? "black" : "grey"}
                   className="questionButton"
                   name="radioGroup"
-                  value="c"
-                  checked={selectedValue === "C"}
-                  onClick={() => handleRadioChange("C")}
+                  value="a"
+                  checked={selectedValue === "A"}
+                  onClick={() => handleRadioChange("A")}
                 >
-                  {question.c}
+                  {question.a}
                 </Button>
               </Form.Field>
-            )}
-            {question.d && ( // Check if question.d has a value
               <Form.Field>
                 <Button
-                  color={selectedValue === "D" ? "black" : "grey"}
+                  color={selectedValue === "B" ? "black" : "grey"}
                   className="questionButton"
                   name="radioGroup"
-                  value="d"
-                  checked={selectedValue === "D"}
-                  onClick={() => handleRadioChange("D")}
+                  value="b"
+                  checked={selectedValue === "B"}
+                  onClick={() => handleRadioChange("B")}
                 >
-                  {question.d}
+                  {question.b}
                 </Button>
               </Form.Field>
-            )}
-            {/* {question.e && ( // Check if question.d has a value
-              <Form.Field>
-                <Button
-                  color={selectedValue === "E" ? "black" : "grey"}
-                  className="questionButton"
-                  name="radioGroup"
-                  value="e"
-                  checked={selectedValue === "E"}
-                  onClick={() => handleRadioChange("E")}
-                >
-                  {question.e}
-                </Button>
-              </Form.Field>
-            )} */}
-          </Form>
-        ) : null}
+              {question.c && ( // Check if question.c has a value
+                <Form.Field>
+                  <Button
+                    color={selectedValue === "C" ? "black" : "grey"}
+                    className="questionButton"
+                    name="radioGroup"
+                    value="c"
+                    checked={selectedValue === "C"}
+                    onClick={() => handleRadioChange("C")}
+                  >
+                    {question.c}
+                  </Button>
+                </Form.Field>
+              )}
+              {question.d && ( // Check if question.d has a value
+                <Form.Field>
+                  <Button
+                    color={selectedValue === "D" ? "black" : "grey"}
+                    className="questionButton"
+                    name="radioGroup"
+                    value="d"
+                    checked={selectedValue === "D"}
+                    onClick={() => handleRadioChange("D")}
+                  >
+                    {question.d}
+                  </Button>
+                </Form.Field>
+              )}
+              {question.e && ( // Check if question.e has a value
+                <Form.Field>
+                  <Button
+                    color={selectedValue === "E" ? "black" : "grey"}
+                    className="questionButton"
+                    name="radioGroup"
+                    value="e"
+                    checked={selectedValue === "E"}
+                    onClick={() => handleRadioChange("E")}
+                  >
+                    {question.e}
+                  </Button>
+                </Form.Field>
+              )}
+            </Form>
+          ) : null}
 
-        {test ? <br /> : null}
+          {test ? <br /> : null}
 
-        {test ? (
-          <section className="flex flex-row	space-x-64 items-center justify-center">
-            {index === 1 ? "" : <Button onClick={backFunc}>Back</Button>}
-            
-            {test.progress >= Number(test.totalQuestions) && (
-              <section className="submitSection">
-                <Button
-                  color="green"
-                  size="large"
-                  onClick={submitExam}
-                  className="submitExamButton"
-                >
-                  Submit Exam
-                </Button>
-              </section>
-            )}
+          {test ? (
+            <section className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+              {index === 1 ? "" : <Button onClick={backFunc}>Back</Button>}
+              
+              {test.progress >= Number(test.totalQuestions) && (
+                <section className="submitSection">
+                  <Button
+                    color="green"
+                    size="large"
+                    onClick={submitExam}
+                    className="submitExamButton"
+                  >
+                    Submit Exam
+                  </Button>
+                </section>
+              )}
 
-            {index + 1 === Number(test.totalQuestions) ? ("") : 
-            (
-              <Button onClick={nextFunc}>Next</Button>
-            )}
-          </section>
-        ) : null}
+              {index === Number(test.totalQuestions) ? ("") : 
+              (
+                <Button onClick={nextFunc}>Next</Button>
+              )}
+            </section>
+          ) : null}
 
-        {test && showModal && (
-          <PopUp
-            open={showModal}
-            onClose={() => setShowModal(false)}
-            onConfirm={() => {
-              setShowModal(false); // Close the modal
-              // Proceed to the next question
-              const nextIndex = index + 1;
-              setIndex(nextIndex);
-              setQuestion(pagination[nextIndex]);
-              setSelectedValue(pagination[nextIndex].selectedAnswer || null);
-            }}
-          />
-        )}
+
+          {test && showModal && (
+            <PopUp
+              open={showModal}
+              onClose={() => setShowModal(false)}
+              onConfirm={() => {
+                setShowModal(false); // Close the modal
+                // Proceed to the next question
+                const nextIndex = index + 1;
+                setIndex(nextIndex);
+                setQuestion(pagination[nextIndex]);
+                setSelectedValue(pagination[nextIndex].selectedAnswer || null);
+              }}
+            />
+          )}
+        </div>
       </Layout>
     </div>
   );

@@ -3,6 +3,7 @@ import { signupFields } from "../components/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
 import { useRouter } from 'next/router';
+import styles from "../app/Login.modules.css";
 
 export default function Register(){
   const router = useRouter()
@@ -11,12 +12,14 @@ export default function Register(){
 
   fields.forEach(field => fieldsState[field.id]='');
   const [signupState,setSignupState]=useState(fieldsState);
+  const [loading, setLoading] = useState(false);
 
   const handleChange=(e)=>setSignupState({...signupState,[e.target.id]:e.target.value});
 
   const handleSubmit=(e)=>{
     e.preventDefault();
     createAccount()
+    setLoading(true)
   }
 
   //handle Signup API Integration here
@@ -43,8 +46,9 @@ export default function Register(){
     } catch (error) {
       console.error('Error creating customer:', error);
       // Handle errors
+    }  finally {
+      setLoading(false);
     }
-
   }
 
   return(
@@ -68,10 +72,19 @@ export default function Register(){
               )
           }
         <FormAction handleSubmit={handleSubmit} text="Signup" />
+        {loading && (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px' }}>
+                <div className={styles.spinner} style={{
+                    border: '6px solid rgba(0, 0, 0, 0.1)',
+                    borderLeft: '6px solid #3498db',
+                    borderRadius: '50%',
+                    width: '40px',
+                    height: '40px',
+                    animation: 'spin 1s linear infinite'
+                }}></div>
+            </div>
+        )}
       </div>
-
-        
-
     </form>
   )
 }

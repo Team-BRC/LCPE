@@ -10,11 +10,12 @@ const changeQuestion = (
   setSelectedValue,
   pagination
 ) => {
-  const questionIndex = pagination.findIndex((q) => q.id === questionId);
+  const questionIndex = Object.values(pagination).findIndex((q) => q.id === questionId);
+  console.log(pagination)
   if (questionIndex !== -1) {
-    setIndex(questionIndex);
-    setQuestion(pagination[questionIndex]);
-    setSelectedValue(pagination[questionIndex].selectedAnswer || null);
+    setIndex(questionIndex+1);
+    setQuestion(pagination[questionIndex+1]);
+    setSelectedValue(pagination[questionIndex+1].selectedAnswer || null);
   }
 };
 
@@ -29,18 +30,19 @@ const Outline = ({
 
   const [visible, setVisible] = useState(false);
   // const [test, setTest] = useState([])
-  const [flaggedQuestions, setFlaggedQuestions] = useState([])
+  const [flaggedQuestions, setFlaggedQuestions] = useState(test.flagged)
   const [categoryList, setCategoryList] = useState([])
 
-  useEffect(() => {
-    // Check if running on the client side before accessing localStorage
-    if (typeof window !== 'undefined') {
-      // setTest(JSON.parse(localStorage.getItem('test')));
-      // Ensure 'test' is not null before accessing 'allQuestions'
-      setFlaggedQuestions(test.flagged)
-      setCategoryList(test.listOfCategories)
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Check if running on the client side before accessing localStorage
+  //   if (typeof window !== 'undefined') {
+  //     // setTest(JSON.parse(localStorage.getItem('test')));
+  //     // Ensure 'test' is not null before accessing 'allQuestions'
+  //     console.log(test.flagged)
+  //     setFlaggedQuestions(test.flagged)
+  //     setCategoryList(test.listOfCategories)
+  //   }
+  // }, []);
 
   return (
     <>
@@ -75,12 +77,12 @@ const Outline = ({
         <div className="flaggedQuestionParent">
           <h5>Flagged Questions</h5>
           <div className="flaggedQuestionList">
-            {flaggedQuestions ? (Object.keys(flaggedQuestions).map((questionId) => {
-              const question = flaggedQuestions[questionId];
+            {test.flagged ? (Object.keys(test.flagged).map((questionId) => {
+              const question = test.flagged[questionId];
               return (
                 <button
                   key={questionId}
-                  className="flaggedQuestion"
+                  className="flaggedQuestion text-white bg-gray-500"
                   onClick={() =>
                     changeQuestion(
                       question.id,
@@ -91,7 +93,7 @@ const Outline = ({
                     )
                   }
                 >
-                  {question.id} {question.question}
+                  {question.id}
                 </button>
               );
             })) : <></>}

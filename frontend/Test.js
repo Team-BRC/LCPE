@@ -40,33 +40,35 @@ class Test {
       );
       const questionsFromEachCategory =
         calculation < totalInCategory ? calculation : totalInCategory;
+      if (questionsFromEachCategory === 0){
+        alert("Add more questions to generate the exam!")
+        return null
+      }
       const takenNums = new Set();
       while (takenNums.size < questionsFromEachCategory) {
         const num = Math.floor(Math.random() * totalInCategory);
-        console.log(categoryArray[num]);
         if (!takenNums.has(num)) {
           const {
             A,
+            Answer,
             B,
             C,
-            D,
-            // E,
-            Answer,
             Category,
-            Subcategory,
-            Question,
+            D,
+            E,
             Explained,
+            Flag,
             Picture,
-            Flag
+            Question,
+            SubCatNum,
+            Subcategory,
           } = categoryArray[num];
 
-          const tempurl = "https://drive.google.com/file/d/1D1wG2FXGf7puhJ7oI0czgVNUzHzhZwV2/view?usp=sharing";
-
-          if (tempurl){
+          if (Picture !== undefined){
             // imgurl = getDirectImageUrl(Picture)
             // Getting Picture ID from image url
             const fileIdRegex = /\/d\/(.*?)\//;
-            const match = tempurl.match(fileIdRegex);
+            const match = Picture.match(fileIdRegex);
             // Check if there's a match and get the file ID
             const fileId = match && match[1];
             // Log or use the extracted file ID
@@ -76,7 +78,7 @@ class Test {
                 B,
                 C,
                 D,
-                // E,
+                E,
                 Answer,
                 Category,
                 Subcategory,
@@ -97,7 +99,7 @@ class Test {
                 B,
                 C,
                 D,
-                // E,
+                E,
                 Answer,
                 Category,
                 Subcategory,
@@ -119,7 +121,7 @@ class Test {
               B,
               C,
               D,
-              // E,
+              E,
               Answer,
               Category,
               Subcategory,

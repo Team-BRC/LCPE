@@ -4,7 +4,7 @@ class QuestionClass {
     B,
     C,
     D,
-    // E,
+    E,
     Answer,
     Category,
     Subcategory,
@@ -23,7 +23,7 @@ class QuestionClass {
     this.b = B;
     this.c = C;
     this.d = D;
-    // this.e = E,
+    this.e = E,
     this.explained = Explained;
     this.picture = Picture;
     this.flag = Flag;

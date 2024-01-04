@@ -26,7 +26,10 @@ export default function Landing() {
 
   function handleExamGeneration(questions, selectedExamSize) {
     const examInstance = new Test(selectedExamSize);
-    examInstance.generateExam(questions, examInstance.totalQuestions);
+    if (examInstance.generateExam(questions, examInstance.totalQuestions) === null) {
+      return null;
+    }
+    console.log(examInstance);
     const examInstanceJSON = JSON.stringify(examInstance);
     localStorage.setItem("test", examInstanceJSON);
     return examInstance;
@@ -37,9 +40,11 @@ export default function Landing() {
     localStorage.removeItem("timer");
     // console.log(questions);
     const test = handleExamGeneration(questions, selectedExamSize);
-    localStorage.setItem("totalSeconds", totalSeconds)
-    // localStorage.setItem("test", test)
-    router.push("/Exam"); // redirect to the exam page, with the seconds as a state
+    if (test !== null) {
+      localStorage.setItem("totalSeconds", totalSeconds)
+      // localStorage.setItem("test", test)
+      router.push("/Exam"); // redirect to the exam page, with the seconds as a state
+    }
   };
 
   const formatTime = (timeInMinutes) => {
@@ -106,6 +111,7 @@ export default function Landing() {
               <br/>
             </label>
           </div>
+          <h3 className={styles.sectionTitle}># of Questions</h3>
           <input
             type="number"
             value={selectedExamSize}
